@@ -1,0 +1,102 @@
+name: consultant_orzu
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  get: ^4.6.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  intl: any
+  local_auth: ^2.1.5
+  flutter_svg: ^2.0.1
+  carousel_slider: ^4.1.1
+  fdottedline_nullsafety: ^2.0.1
+  
+  keyboard_visibility_pro: ^0.0.1
+  dropdown_button2: ^2.0.0
+  calendar_date_picker2: ^0.4.9
+  curved_progress_bar: ^1.0.2
+  simple_gradient_text: ^1.2.4
+  animations: ^2.0.7
+  responsive_sizer: ^3.1.1
+  add_to_cart_animation: ^2.0.3
+
+
+  flutter_localizations:
+    sdk: flutter
+  http: ^1.1.0
+  loading_animation_widget: ^1.2.0+4
+  path_provider: ^2.0.15
+  device_preview: ^1.1.0
+  mask_text_input_formatter: ^2.5.0
+
+  shimmer: ^3.0.0
+  material_floating_search_bar_2: ^0.5.0
+  image_picker: ^1.0.2
+  animated_digit: ^3.2.3
+  searchfield: ^0.8.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+  #   - images/a_dot_ham.jpeg
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+
+        - asset: assets/fonts/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+
+        - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat-Italic.ttf
+          weight: 400
+          style: italic
+
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+        - asset: assets/fonts/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
