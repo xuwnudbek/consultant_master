@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
               // home: Login(),
               home: Consumer<MainProvider>(
                 builder: (context, provider, _) {
-                  return Welcome(); //provider.token != null ? Home() : Welcome();
+                  return provider.token != null ? Home() : Welcome();
                 },
               ),
             );
