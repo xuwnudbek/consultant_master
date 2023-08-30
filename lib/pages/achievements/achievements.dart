@@ -1,22 +1,18 @@
 import 'package:consultant_orzu/controller/https/http.dart';
-import 'package:consultant_orzu/pages/achievements/achievements.dart';
-import 'package:consultant_orzu/pages/change_language/change_language.dart';
-import 'package:consultant_orzu/pages/home/view/profile/change_profile.dart';
+import 'package:consultant_orzu/pages/achievements/provider/achievements_provider.dart';
 import 'package:consultant_orzu/pages/home/view/profile/provider/profile_provider.dart';
 import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/shadow/container_shadow.dart';
 import 'package:consultant_orzu/utils/widgets/loaders/cp_indicator.dart';
-import 'package:consultant_orzu/utils/widgets/main_button.dart';
 import 'package:curved_progress_bar/curved_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class Achievements extends StatelessWidget {
+  const Achievements({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +24,26 @@ class ProfilePage extends StatelessWidget {
             return pd.isLoading
                 ? CPIndicator()
                 : Scaffold(
+                    extendBodyBehindAppBar: true,
+                    appBar: AppBar(
+                      leading: BackButton(),
+                    ),
                     body: Stack(
                       children: [
                         Image.asset(
                           "assets/images/background.jpg",
-                          height: Get.height * 0.2,
+                          height: Get.height * 0.25,
                           width: Get.width,
                           fit: BoxFit.cover,
                         ),
+                        // Text("${pd.seller}"),
                         Column(
                           children: [
-                            Row(),
                             SizedBox(
-                              height: Get.height * 0.08,
+                              height: Get.height * 0.12,
                               child: Center(
                                 child: Text(
-                                  "profile".tr,
+                                  "achievements".tr,
                                   style: Get.textTheme.titleSmall!.copyWith(
                                     color: HexToColor.mainColor,
                                     fontWeight: FontWeight.w600,
@@ -90,10 +90,10 @@ class ProfilePage extends StatelessWidget {
                                               ClipRRect(
                                                 borderRadius: BorderRadius.circular(100.0),
                                                 child: Image.network(
-                                                  "${HttpService.images}/${pd.seller['image']}",
-                                                  fit: BoxFit.cover,
+                                                  "${HttpService.images}${pd.seller['image']}",
                                                   height: Get.width * 0.15,
                                                   width: Get.width * 0.15,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                               Positioned(
@@ -262,197 +262,23 @@ class ProfilePage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 20),
                             Expanded(
-                              child: ListView(
-                                children: [
-                                  //Personal Area
-                                  GestureDetector(
-                                    onTap: () async {
-                                      var res = await Get.to(() => ChangeProfile(), transition: Transition.rightToLeft);
-                                      pd.refresh();
+                              child: Padding(
+                                padding: EdgeInsets.only(left: Get.width * 0.05, right: Get.width * 0.05),
+                                child: GridView.custom(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20,
+                                    childAspectRatio: 1.7,
+                                  ),
+                                  childrenDelegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                      return AchieveCard(achieve: pd.seller['prizs'][index]);
                                     },
-                                    child: Container(
-                                      // height: 50,
-                                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: shadowContainer(),
-                                      ),
-                                      child: Row(children: [
-                                        SvgPicture.asset(
-                                          "assets/images/profile_icon.svg",
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "personal_area".tr,
-                                          style: TextStyle(fontWeight: FontWeight.w600),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          color: Colors.grey,
-                                          size: 20,
-                                        )
-                                      ]),
-                                    ),
+                                    childCount: pd.seller['prizs'].length,
                                   ),
-                                  //Achievements
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(() => Achievements(), transition: Transition.rightToLeft);
-                                    },
-                                    child: Container(
-                                      // height: 50,
-                                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: shadowContainer(),
-                                      ),
-                                      child: Row(children: [
-                                        SvgPicture.asset(
-                                          "assets/images/achievement.svg",
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "achievements".tr,
-                                          style: TextStyle(fontWeight: FontWeight.w600),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          color: Colors.grey,
-                                          size: 20,
-                                        )
-                                      ]),
-                                    ),
-                                  ),
-                                  //Language
-                                  GestureDetector(
-                                    onTap: () async {
-                                      await Get.to(() => ChangeLanguage(), transition: Transition.rightToLeft);
-                                      pd.refresh();
-                                    },
-                                    child: Container(
-                                      // height: 50,
-                                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: shadowContainer(),
-                                      ),
-                                      child: Row(children: [
-                                        SvgPicture.asset(
-                                          "assets/images/language.svg",
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "${pd.language == "uz" ? "O'zbekcha" : "Русский"}",
-                                          style: TextStyle(fontWeight: FontWeight.w600),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          color: Colors.grey,
-                                          size: 20,
-                                        )
-                                      ]),
-                                    ),
-                                  ),
-                                  //Logout
-                                  SizedBox(height: 7),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                                      child: ListTile(
-                                        dense: true,
-                                        onTap: () async {
-                                          Get.defaultDialog(
-                                            content: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(100),
-                                                    color: Colors.red,
-                                                  ),
-                                                  padding: EdgeInsets.all(30),
-                                                  child: SvgPicture.asset(
-                                                    "assets/images/logout.svg",
-                                                    width: 90,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Container(
-                                                  width: Get.width * 0.7,
-                                                  child: Text(
-                                                    "really_quit".tr,
-                                                    textAlign: TextAlign.center,
-                                                    softWrap: true,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                              ],
-                                            ),
-                                            contentPadding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                                            actions: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  MainButton(
-                                                    width: 150,
-                                                    color: Colors.black26,
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    child: Text(
-                                                      "no".tr,
-                                                      style: Get.textTheme.titleSmall!.copyWith(color: Colors.white),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 20),
-                                                  MainButton(
-                                                    width: 150,
-                                                    color: Colors.red,
-                                                    onPressed: () {
-                                                      pd.logout();
-                                                    },
-                                                    child: Text(
-                                                      "yes".tr,
-                                                      style: Get.textTheme.titleSmall!.copyWith(color: Colors.white),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        tileColor: Colors.red,
-                                        leading: SvgPicture.asset(
-                                          "assets/images/logout.svg",
-                                          width: 30,
-                                          color: Colors.white,
-                                        ),
-                                        title: Text(
-                                          "quit".tr,
-                                          style: Get.textTheme.bodyLarge!.copyWith(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                           ],
@@ -463,6 +289,65 @@ class ProfilePage extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class AchieveCard extends StatelessWidget {
+  const AchieveCard({super.key, required this.achieve});
+
+  final Map achieve;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(10),
+        color: HexToColor.light,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            spreadRadius: 1,
+            blurRadius: 7,
+          )
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.network(
+            "${HttpService.images}${achieve['prize']['image']}",
+            width: 0.22.dp,
+            fit: BoxFit.contain,
+          ),
+          Text(
+            "Лучший продавец недели",
+            style: Get.textTheme.bodyLarge!.copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Продать товаров 20 из 20",
+                style: Get.textTheme.bodyLarge!.copyWith(
+                  color: Colors.grey.shade600,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(width: 5),
+              Icon(
+                Icons.check_circle_rounded,
+                color: Colors.green,
+                size: 20,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,13 +1,16 @@
 import 'package:consultant_orzu/controller/https/http.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SearchButtonFieldProvider extends ChangeNotifier {
   var searchController = TextEditingController();
+  var focusNode = FocusNode();
 
   bool isLoading = false;
 
   List _products = [];
   List get products => _products;
+
   set setProduct(value) {
     _products = value;
     notifyListeners();
@@ -49,6 +52,12 @@ class SearchButtonFieldProvider extends ChangeNotifier {
     }
 
     isLoading = false;
+    notifyListeners();
+  }
+
+  clear() {
+    searchController.clear();
+    _products.clear();
     notifyListeners();
   }
 }

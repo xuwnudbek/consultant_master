@@ -30,13 +30,13 @@ class CartPageProvider extends ChangeNotifier {
 
   void onSelectItem(value) {
     selectCategory = value;
-    sorted = sales.where((element) => element['status'] == int.tryParse(value)).toList();
+    sorted = sales.where((element) => element['status'] == int.parse(value)).toList();
     if (dateRange.isNotEmpty) {
       if (dateRange.length == 1) {
         sorted = sorted.where((element) => element['created_at'].toString().contains(dateRange[0])).toList();
       } else {
         sorted = sorted.where((element) {
-          return DateTime.parse(element['created_at']).isAfter(DateTime.parse(dateRange[0])) && DateTime.parse(element['created_at']).isBefore(DateTime.parse(dateRange[1]));
+          return DateTime.parse(element['created_at']).isAfter(dateRange[0]) && DateTime.parse(element['created_at']).isBefore(dateRange[1]);
         }).toList();
       }
     }

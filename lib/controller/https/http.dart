@@ -12,6 +12,7 @@ class HttpService {
 
   //BaseUrl
   static String categories = "${_baseAdditional}/categories";
+  static String tabs = "${_baseAdditional}/tabs";
   static String products = "${_baseAdditional}/products";
   static String product = "${_baseAdditional}/products/view";
   static String discounts = "${_baseAdditional}/products/discounts";

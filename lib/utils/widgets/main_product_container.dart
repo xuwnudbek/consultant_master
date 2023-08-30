@@ -1,4 +1,5 @@
 import 'package:consultant_orzu/controller/hive/hive.dart';
+import 'package:consultant_orzu/utils/functions/main_func.dart';
 import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/shadow/container_shadow.dart';
 import 'package:consultant_orzu/utils/widgets/image_network.dart';
@@ -11,13 +12,11 @@ class MainProductContainer extends StatelessWidget {
   MainProductContainer({
     super.key,
     this.product,
-    this.width = 150,
     required this.onAddCalc,
     required this.onPressed,
   });
 
   Map? product;
-  double width;
   Function onAddCalc;
   Function onPressed;
 
@@ -25,9 +24,11 @@ class MainProductContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = Get.width * 0.3;
+
     return Container(
-      constraints: BoxConstraints(maxWidth: width, maxHeight: 300),
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      constraints: BoxConstraints(maxWidth: width, maxHeight: Get.height * 0.27),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -78,30 +79,6 @@ class MainProductContainer extends StatelessWidget {
                     maxLines: 2,
                   ),
                   Spacer(),
-
-                  /*
-                        {
-                            "id": 35,
-                            "category_id": 196,
-                            "slug": "redmi-10-qdwdqw",
-                            "article": "asdasdA",
-                            "title_uz": "Redmi 10 qdwdqw",
-                            "title_uzc": "Redmi 10 qwdqwd",
-                            "title_ru": "Redmi 10 asdasd",
-                            "short_description_uz": null,
-                            "short_description_uzc": null,
-                            "short_description_ru": null,
-                            "price": 10000000,
-                            "discount_price": 100,
-                            "monthly_pay": null,
-                            "is_discount": true,
-                            "badges": [],
-                            "tabs": [],
-                            "image": "https://app.orzugrand.uz/storage/uploads/products/1683869189c3QA2xpOs6Ju8I4O.jpeg"
-                        },
-                      
-                      
-                      */
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -122,7 +99,7 @@ class MainProductContainer extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "${product!['price'].truncate()} so'm",
+                            "${MainFunc().prettyPrice(product!['price'].truncate())} so'm",
                             style: TextStyle(
                               fontSize: 13.7.sp,
                               fontWeight: FontWeight.w600,

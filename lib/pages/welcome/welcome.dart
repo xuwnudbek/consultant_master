@@ -6,8 +6,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class Welcome extends StatelessWidget {
+class Welcome extends StatefulWidget {
   const Welcome({super.key});
+
+  @override
+  State<Welcome> createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
+  bool isAnimate = false;
+  Offset position = Offset(0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,36 @@ class Welcome extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildDescription(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: SvgPicture.asset("assets/images/logo.svg"),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "welcome".tr,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          "convenience_with_us".tr,
+                          style: Theme.of(Get.context!).textTheme.bodyLarge,
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          width: Get.width * 0.7,
+                          child: SvgPicture.asset(
+                            "assets/images/assist.svg",
+                            width: Get.width * 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 SizedBox(height: 50),
@@ -54,39 +91,6 @@ class Welcome extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDescription() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          child: SvgPicture.asset("assets/images/logo.svg"),
-        ),
-        SizedBox(height: 10),
-        Text(
-          "welcome".tr,
-          style: TextStyle(
-            fontSize: 20.sp,
-            color: Colors.green,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Text(
-          "convenience_with_us".tr,
-          style: Theme.of(Get.context!).textTheme.bodyLarge,
-        ),
-        SizedBox(height: 10),
-        Container(
-          width: Get.width * 0.7,
-          child: SvgPicture.asset(
-            "assets/images/assist.svg",
-            width: Get.width * 0.5,
-          ),
-        ),
-      ],
     );
   }
 }

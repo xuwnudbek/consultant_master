@@ -1,3 +1,4 @@
+import 'package:consultant_orzu/controller/hive/hive.dart';
 import 'package:consultant_orzu/pages/about_product/about_product.dart';
 import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
@@ -18,21 +19,20 @@ class SearchButtonField extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.all(10.0),
               child: SearchField(
-                suggestionState: Suggestion.expand,
                 onSearchTextChanged: (p0) {
                   provider.getSearchProducts(p0);
                 },
                 textInputAction: TextInputAction.search,
                 controller: provider.searchController,
                 itemHeight: 90,
-                focusNode: FocusNode(
-                  onKey: (node, event) {
-                    MainSnackbars.success("asdasd");
-                    return KeyEventResult.handled;
-                  },
-                ),
                 searchStyle: Get.textTheme.bodyLarge,
                 searchInputDecoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      provider.clear();
+                    },
+                    icon: Icon(Icons.clear, color: Colors.grey),
+                  ),
                   hintText: "search".tr,
                   hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.grey.shade500),
                   contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 20),
@@ -66,7 +66,7 @@ class SearchButtonField extends StatelessWidget {
                     ),
                   ...provider.products.map(
                     (e) => SearchFieldListItem(
-                      "s",
+                      "${e['title_${HiveService.get("language")}']}",
                       child: SearchProductTile(product: e),
                     ),
                   ),

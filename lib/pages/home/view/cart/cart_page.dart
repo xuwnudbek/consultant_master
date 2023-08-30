@@ -7,7 +7,6 @@ import 'package:consultant_orzu/utils/functions/main_func.dart';
 import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/shadow/container_shadow.dart';
 import 'package:consultant_orzu/utils/widgets/loaders/cp_indicator.dart';
-import 'package:consultant_orzu/utils/widgets/search_button_field/search_button_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -253,10 +252,14 @@ class ContainerCardList extends StatelessWidget {
                     ),
                     child: Row(children: [
                       Container(
-                        width: 10,
+                        width: 7,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(4), bottomLeft: Radius.circular(4)),
-                          color: Colors.blue.withOpacity(0.5),
+                          color: sale['status'] == 0
+                              ? Colors.green.withOpacity(0.5)
+                              : sale['status'] == 0
+                                  ? Colors.blue.withOpacity(0.5)
+                                  : Colors.red.withOpacity(0.5),
                         ),
                       ),
                       Expanded(

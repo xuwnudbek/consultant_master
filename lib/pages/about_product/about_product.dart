@@ -163,46 +163,53 @@ class AboutProduct extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        child: Container(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 5),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    "При покупке",
-                                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13.8.sp),
-                                                  ),
-                                                ],
-                                              ),
-                                              Wrap(
-                                                //   spacing: 0.0,
-                                                //   runSpacing: 0,
-                                                children: [
-                                                  //Features
+                                    Visibility(
+                                      visible: provider.badges.isEmpty,
+                                      child: Expanded(child: SizedBox.shrink()),
+                                    ),
+                                    Visibility(
+                                      visible: provider.badges.isNotEmpty,
+                                      child: Expanded(
+                                        child: SingleChildScrollView(
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(height: 5),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "При покупке",
+                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13.8.sp),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Wrap(
+                                                  //   spacing: 0.0,
+                                                  //   runSpacing: 0,
+                                                  children: [
+                                                    //Features
 
-                                                  ...provider.badges.map((badge) {
-                                                    return Container(
-                                                      margin: EdgeInsets.only(right: 5, top: 10),
-                                                      // height: 40,
-                                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(color: Colors.grey.shade400),
-                                                        borderRadius: BorderRadius.circular(4),
-                                                      ),
-                                                      child: Tooltip(
-                                                        triggerMode: TooltipTriggerMode.tap,
-                                                        message: badge['tooltip_text_${HiveService.get("language")}'].toString(),
-                                                        child: Text("${badge['name']}"),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ],
-                                              ),
-                                            ],
+                                                    ...provider.badges.map((badge) {
+                                                      return Container(
+                                                        margin: EdgeInsets.only(right: 5, top: 10),
+                                                        // height: 40,
+                                                        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(color: Colors.grey.shade400),
+                                                          borderRadius: BorderRadius.circular(4),
+                                                        ),
+                                                        child: Tooltip(
+                                                          triggerMode: TooltipTriggerMode.tap,
+                                                          message: badge['tooltip_text_${HiveService.get("language")}'].toString(),
+                                                          child: Text("${badge['name']}"),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

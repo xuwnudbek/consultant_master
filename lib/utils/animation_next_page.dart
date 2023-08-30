@@ -14,8 +14,7 @@ class AnimationNextPage extends StatelessWidget {
       },
       openColor: Colors.white,
       closedElevation: 0,
-      closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0), side: BorderSide.none),
+      closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0), side: BorderSide.none),
       transitionDuration: const Duration(milliseconds: 1000),
       openBuilder: (_, closeContainer) {
         return page;

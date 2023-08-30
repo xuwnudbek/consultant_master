@@ -8,13 +8,12 @@ class HomePageProvider extends ChangeNotifier {
   bool isCaruselLoading = false;
   List carusel = [];
   List discounts = [];
-  List categories = [];
-
-  int page = 1;
+  List tabs = [];
 
   HomePageProvider() {
-    getDiscountProducts();
+    // getDiscountProducts();
     getCaruselProducts();
+    getTabs();
   }
 
   //Discount products
@@ -26,6 +25,23 @@ class HomePageProvider extends ChangeNotifier {
 
     if (res['status'] == HttpResponse.data) {
       discounts = res['data']['data'];
+      notifyListeners();
+    } else {
+      print(res['data']);
+    }
+
+    isLoading = false;
+    notifyListeners();
+  }
+
+  getTabs() async {
+    isLoading = true;
+    notifyListeners();
+
+    var res = await HttpService.GET(HttpService.tabs, base: HttpService.baseUrl);
+
+    if (res['status'] == HttpResponse.data) {
+      tabs = res['data']['data'];
       notifyListeners();
     } else {
       print(res['data']);
