@@ -1,10 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.consultant_orzu">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
-   <application
-        android:label="consultant_orzu"
+    <application
+        android:label="consultant_master"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

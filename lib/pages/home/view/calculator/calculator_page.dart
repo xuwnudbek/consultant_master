@@ -85,19 +85,36 @@ class CalculatorPage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                        "${provider.countProducts} товара",
+                                        "${"count_products".tr} :  ${provider.countProducts}",
                                         style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey.shade600, fontSize: 14.8.sp),
                                       ),
-                                      Wrap(
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${MainFunc().prettyPrice(provider.allPrice)} сум",
+                                            "${"all".tr}:  ${MainFunc().prettyPrice(provider.allPrice)} сум",
                                             style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor, fontSize: 14.8.sp),
                                           ),
                                           const SizedBox(width: 10),
-                                          Text(
-                                            "${MainFunc().prettyPrice(provider.allDiscountPrice)} сум",
-                                            style: TextStyle(decoration: TextDecoration.lineThrough, fontWeight: FontWeight.w600, color: Colors.black87, fontSize: 14.8.sp),
+                                          Visibility(
+                                            visible: provider.allDiscountPrice != 0,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  "discount".tr + ":  ",
+                                                  style: Get.textTheme.bodyMedium!.copyWith(
+                                                    color: Colors.grey.shade600,
+                                                    fontSize: 13.5.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${MainFunc().prettyPrice(provider.allDiscountPrice)} сум",
+                                                  style: TextStyle(decoration: TextDecoration.lineThrough, fontWeight: FontWeight.w600, color: Colors.black87, fontSize: 14.8.sp),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       )
@@ -138,8 +155,11 @@ class CalculatorPage extends StatelessWidget {
                                         );
                                       },
                                       child: Text(
-                                        "Офформление",
-                                        style: TextStyle(fontSize: 12),
+                                        "oformit".tr,
+                                        style: Get.textTheme.bodyLarge!.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -178,6 +198,7 @@ class CalculatorPage extends StatelessWidget {
                                         initialItemCount: provider.save['products'].length,
                                         itemBuilder: (context, index, animation) {
                                           Map product = provider.save['products'][index];
+                                          product['startPrice'] = provider.save['startPrice'];
                                           return ProductContainer(
                                             key: Key("${product['id']}"),
                                             product: product,
@@ -207,115 +228,3 @@ class CalculatorPage extends StatelessWidget {
     );
   }
 }
-
-//Custom Slider
-
-class SliderX extends StatelessWidget {
-  SliderX(this.onChange(value));
-
-  Function onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<SliderXProvider>(builder: (context, provider, _) {
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SliderTheme(
-              data: SliderThemeData(
-                trackHeight: 2,
-                activeTrackColor: HexToColor.mainColor,
-                inactiveTrackColor: HexToColor.greyTextFieldColor,
-                tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: 7),
-                activeTickMarkColor: HexToColor.mainColor,
-                inactiveTickMarkColor: HexToColor.greyTextFieldColor,
-                overlayColor: HexToColor.mainColor.withOpacity(.7),
-                showValueIndicator: ShowValueIndicator.always,
-                valueIndicatorColor: HexToColor.mainColor.withOpacity(1),
-                thumbColor: HexToColor.mainColor,
-              ),
-              child: Slider(
-                label: "${provider.value.truncate()}",
-                value: provider.value * 1.0,
-                onChanged: (value) {
-                  onChange(value.toInt());
-                  provider.value = value.toInt();
-                },
-                divisions: 9,
-                min: 3,
-                max: 12,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ...[3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((e) {
-                    return Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      child: Text(
-                        "${(e % 3 == 0 || provider.value == e) ? e : ''}",
-                        style: TextStyle(
-                          color: (provider.value >= e) ? HexToColor.mainColor : HexToColor.greyTextFieldColor,
-                        ),
-                      ),
-                    );
-                  })
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    });
-  }
-}
-
-class SliderXProvider extends ChangeNotifier {
-  int _value = 3;
-  int get value => _value;
-  set value(int val) {
-    _value = val;
-    notifyListeners();
-  }
-}
-
-
-
-/*
-TextFormField(
-  keyboardType: TextInputType.number,
-  controller: provider.initPriceController,
-  inputFormatters: [
-    IntRangeTextInputFormatter(
-      max: 100000000,
-    ),
-    NumericTextFormatter(),
-  ],
-  style: Theme.of(context).textTheme.bodyLarge,
-  decoration: InputDecoration(
-    contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-    hintText: "0",
-    fillColor: HexToColor.greyTextFieldColor,
-    errorStyle: TextStyle(fontSize: 0),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
-      borderRadius: BorderRadius.circular(5),
-    ),
-    border: OutlineInputBorder(
-      borderSide: BorderSide.none,
-      borderRadius: BorderRadius.circular(5),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: HexToColor.mainColor, width: 1),
-      borderRadius: BorderRadius.circular(5),
-    ),
-  ),
-),
-
-
-*/

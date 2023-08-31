@@ -8,6 +8,20 @@ class CategoryProvider extends ChangeNotifier {
 
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCartAnimation;
+
+  ExpansionTileController expansionTileController = ExpansionTileController();
+
+  onChanged() {
+    notifyListeners();
+  }
+
+  String? _selectedCategory;
+  get selectedCategory => _selectedCategory;
+  set selectedCategory(value) {
+    _selectedCategory = value;
+    notifyListeners();
+  }
+
   var _cartQuantityItems = 0;
 
   List products = [];

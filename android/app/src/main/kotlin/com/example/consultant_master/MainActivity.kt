@@ -1,4 +1,4 @@
-package com.example.consultant_orzu
+package com.example.consultant_master
 
 import io.flutter.embedding.android.FlutterActivity
 

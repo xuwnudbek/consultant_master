@@ -81,10 +81,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
   Widget build(BuildContext context) {
     var product = widget.product;
     var data = product['data'];
-
-    // print(;
-    print(product);
-
+    var startPrice = int.tryParse(product['startPrice'].toString().replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
       child: Padding(
@@ -125,25 +122,28 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                             left: showPriceContainer ? 0 : -(Get.width) / 2,
                             top: 12.5,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(
-                                  'assets/images/cube.svg',
-                                  // color: Colors.red,
+                                  'assets/images/init_money.svg',
                                   width: 40,
+                                  color: Colors.white,
                                 ),
                                 SizedBox(width: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Сумма товара:",
-                                      style: Get.textTheme.bodyLarge!.copyWith(
+                                      "initial_payment".tr + ":",
+                                      style: Get.textTheme.titleSmall!.copyWith(
+                                        fontSize: 14.sp,
                                         color: Colors.white,
                                       ),
                                     ),
                                     Text(
-                                      "${MainFunc().prettyPrice(data['price'] * product['count'])} ${'sum'.tr}",
+                                      "${MainFunc().prettyPrice(startPrice)} ${'sum'.tr}" + " / " + "month".tr.toLowerCase(),
                                       style: Get.textTheme.titleSmall!.copyWith(
+                                        fontSize: 15.5.sp,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -157,22 +157,34 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                             duration: Duration(milliseconds: 550),
                             left: showPriceContainer ? 0 : -(Get.width) / 2,
                             top: 65,
-                            child: Row(
+                            child: Column(
                               children: [
-                                SvgPicture.asset(
-                                  'assets/images/calendar-tick.svg',
-                                  // color: Colors.red,
-                                  width: 40,
-                                ),
-                                SizedBox(width: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Row(
                                   children: [
-                                    Text(
-                                      "Рассрочка на: ${product['date']} мес",
-                                      style: Get.textTheme.bodyLarge!.copyWith(
-                                        color: Colors.white,
-                                      ),
+                                    SvgPicture.asset(
+                                      'assets/images/calendar-2.svg',
+                                      // color: Colors.red,
+                                      width: 40,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Рассрочка на:",
+                                          style: Get.textTheme.titleSmall!.copyWith(
+                                            fontSize: 14.sp,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${product['date']} ${"month".tr.toLowerCase()}",
+                                          style: Get.textTheme.titleSmall!.copyWith(
+                                            fontSize: 15.5.sp,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -189,34 +201,79 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                           children: [
                             AnimatedPositioned(
                               duration: Duration(milliseconds: 400),
-                              right: showPriceContainer ? 0 : -(Get.width) / 2,
+                              right: showPriceContainer ? 0 : -Get.width / 2,
                               top: 0,
+                              // left: 0,
                               bottom: 0,
-                              child: Container(
-                                height: 90,
-                                width: Get.width / 2 - 85,
+                              child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.horizontal(
-                                    left: Radius.circular(40),
+                                    left: Radius.circular(25),
                                   ),
                                   color: Colors.white.withOpacity(0.90),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/coin.svg',
-                                      width: 40,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      "${MainFunc().prettyPrice(data['price'] * product['count'] / int.parse(product['date'] ?? "1"))} ${'sum'.tr}",
-                                      // "${MainFunc().prettyPrice(data['price'] / int.parse(product['date']))} сум / мес",
-                                      style: Get.textTheme.titleSmall!.copyWith(
-                                        color: Colors.green,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/images/cube.svg',
+                                            width: 40,
+                                            color: Colors.green,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "all_price".tr + ":",
+                                                style: Get.textTheme.bodyLarge!.copyWith(
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                              Text(
+                                                "${MainFunc().prettyPrice(data['price'] * product['count'])} ${'sum'.tr}",
+                                                style: Get.textTheme.titleSmall!.copyWith(
+                                                  fontSize: 14.5.sp,
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/images/clock.svg',
+                                            width: 40,
+                                            // colorFilter: ColorFilter.mode(Colors, blendMode),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${MainFunc().prettyPrice(data['price'] / int.parse(product['date']))} сум / мес",
+                                                style: Get.textTheme.titleSmall!.copyWith(
+                                                  fontSize: 14.5.sp,
+                                                  color: Colors.green,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -265,10 +322,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
             //Products container
             AnimatedPositioned(
               duration: Duration(milliseconds: animatedMain),
-              right: 0,
-              bottom: 0,
-              top: 0,
-              left: 0,
               child: Column(
                 children: [
                   GestureDetector(
@@ -350,27 +403,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                                 ),
                                               ],
                                             ),
-                                            // Visibility(
-                                            //   visible: product['count'] > 1,
-                                            //   child: Row(
-                                            //     children: [
-                                            //       Container(
-                                            //         margin: const EdgeInsets.symmetric(horizontal: 10),
-                                            //         height: 30,
-                                            //         color: Colors.grey,
-                                            //         width: 1.5,
-                                            //       ),
-                                            //       Text(
-                                            //         "${MainFunc().prettyPrice(data['price'] * product['count'])} ${'sum'.tr}",
-                                            //         maxLines: 2,
-                                            //         style: TextStyle(
-                                            //           fontWeight: FontWeight.w600,
-                                            //           color: Colors.grey.shade700,
-                                            //         ),
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            // ),
                                           ],
                                         )
                                       ],
@@ -393,10 +425,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                               ? Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    // Text(
-                                                    //   "count".tr,
-                                                    //   style: TextStyle(fontSize: 14.8.sp, fontWeight: FontWeight.w600),
-                                                    // ),
                                                     Text(
                                                       "${product['count']} ",
                                                       style: TextStyle(fontSize: 14.8.sp, fontWeight: FontWeight.w600),

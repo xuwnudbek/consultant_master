@@ -430,7 +430,11 @@ class BottomSheetX extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () async {
                     //Rasmiylashtirish
-                    if (provider.bottomCount == 0) return;
+                    if (provider.bottomCount == 0) {
+                      MainSnackbars.warning("at_least_1_product".tr);
+                      return;
+                    }
+
                     if (provider.isFormalizating) return;
                     provider.dateController.clear();
                     provider.initPriceController.clear();

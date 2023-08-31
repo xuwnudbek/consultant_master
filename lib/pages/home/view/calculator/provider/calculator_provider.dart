@@ -18,7 +18,7 @@ class CalculatorProvider extends ChangeNotifier {
   oformit(String phone) async {
     if (phone.isEmpty) return;
 
-    phone = "+998" + phone.replaceAll(RegExp(r'[\s\-()]+'), '');
+    phone = "+998" + phone.replaceAll(RegExp(r'[^0-9]'), '');
 
     isLoading = true;
     notifyListeners();

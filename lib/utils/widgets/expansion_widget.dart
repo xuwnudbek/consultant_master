@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ExpansionWidget extends StatelessWidget {
+class ExpansionWidget extends StatefulWidget {
   ExpansionWidget({
     super.key,
     required this.category,
@@ -17,10 +17,21 @@ class ExpansionWidget extends StatelessWidget {
   Category category;
 
   @override
+  State<ExpansionWidget> createState() => _ExpansionWidgetState();
+}
+
+class _ExpansionWidgetState extends State<ExpansionWidget> {
+  ExpansionTileController expansionTileController = ExpansionTileController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<CategoryProvider>(
       builder: (context, provider, child) {
-        print(category.image);
         return Container(
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
@@ -29,33 +40,36 @@ class ExpansionWidget extends StatelessWidget {
             boxShadow: shadowContainer(),
           ),
           child: ExpansionTile(
-            // iconColor: HexToColor.mainColor,
+            key: Key(widget.category.id.toString()),
             iconColor: HexToColor.greenColor,
             textColor: HexToColor.blackColor,
             collapsedIconColor: HexToColor.mainColor,
-            initiallyExpanded: false,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.transparent),
             ),
+            initiallyExpanded: widget.category.id.toString() == provider.selectedCategory,
             leading: SvgPicture.network(
-              category.image!,
+              widget.category.image!,
               height: 21.sp,
               width: 21.sp,
               // color: HexToColor.mainColor,
             ),
             onExpansionChanged: (value) {
-              if (value && category.subCategories.length == 0) {
+              provider.onChanged();
+              print(widget.category.id.toString() == provider.selectedCategory);
+              provider.selectedCategory = value ? widget.category.id.toString() : null;
+              if (value && widget.category.subCategories.length == 0) {
                 // provider.onSelectCategory(breadCrumbs: "/${category.titleUz}");
               }
             },
             title: Text(
-              category.titleUz,
+              widget.category.titleUz,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.8.sp),
             ),
-            children: category.subCategories.map<Widget>((e) {
+            children: widget.category.subCategories.map<Widget>((e) {
               return subCategoryTile(
                 e,
-                "/${category.titleUz}",
+                "/${widget.category.titleUz}",
                 onPressed: provider.onSelectCategory,
               );
             }).toList(),
@@ -77,8 +91,6 @@ class ExpansionWidget extends StatelessWidget {
         textColor: HexToColor.mainColor,
         collapsedTextColor: Colors.grey.shade700,
         collapsedIconColor: Colors.grey.shade700,
-        // collapsedBackgroundColor: HexToColor.mainColor,
-        initiallyExpanded: false,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Colors.transparent),
         ),
