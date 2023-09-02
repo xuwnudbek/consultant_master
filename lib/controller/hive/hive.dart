@@ -4,6 +4,8 @@ import 'package:path_provider/path_provider.dart';
 class HiveService {
   //Hive already initialized. Here i just get and set new data
   static Box db = Hive.box('db');
+  static String get token => db.get("token");
+  static String language = db.get("language") ?? "uz";
 
   static init() async {
     var doc = await getApplicationDocumentsDirectory();

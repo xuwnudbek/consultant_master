@@ -27,6 +27,7 @@ class CartPage extends StatelessWidget {
             body: provider.isLoading
                 ? CPIndicator()
                 : Column(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       // SearchButtonField(controller: provider.searchController),
                       Padding(
@@ -128,45 +129,66 @@ class CartPage extends StatelessWidget {
                         ),
                       ),
 
-                      //If sale is empty show this widget else not
+                      //if sales is empty
                       Visibility(
                         visible: provider.sales.isEmpty,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 50),
-                          child: Text(
-                            "sale_empty".tr,
-                            style: Get.textTheme.bodyLarge!.copyWith(
-                              color: Colors.grey.shade600,
+                        child: Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Visibility(
+                                visible: provider.sales.isEmpty,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/images/empty_history.svg",
+                                      height: 350,
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "sale_empty".tr,
+                                      textAlign: TextAlign.center,
+                                      style: Get.textTheme.bodyLarge!.copyWith(
+                                        fontSize: 16.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      //if sales is not empty
+                      Visibility(
+                        visible: provider.sales.isNotEmpty,
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                //List of sales
+                                if (provider.sorted.isEmpty) ...[
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 0.2.dp),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("sale_empty".tr),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                                ...provider.sorted.map(
+                                  (e) => ContainerCardList(sale: e, cartProvider: provider),
+                                ),
+                                SizedBox(height: Get.height * 0.1),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      Expanded(
-                          child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            //If sorted is empty show this widget else not
-                            Visibility(
-                              visible: provider.sorted.isEmpty,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 50),
-                                child: Text(
-                                  "sale_empty".tr,
-                                  style: Get.textTheme.bodyLarge!.copyWith(
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            //List of sales
-                            ...provider.sorted.map(
-                              (e) => ContainerCardList(sale: e, cartProvider: provider),
-                            ),
-                            SizedBox(height: Get.height * 0.1),
-                          ],
-                        ),
-                      )),
                     ],
                   ),
           );
@@ -255,9 +277,9 @@ class ContainerCardList extends StatelessWidget {
                         width: 7,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(4), bottomLeft: Radius.circular(4)),
-                          color: sale['status'] == 0
+                          color: sale['status'] == "0"
                               ? Colors.green.withOpacity(0.5)
-                              : sale['status'] == 0
+                              : sale['status'] == "1"
                                   ? Colors.blue.withOpacity(0.5)
                                   : Colors.red.withOpacity(0.5),
                         ),

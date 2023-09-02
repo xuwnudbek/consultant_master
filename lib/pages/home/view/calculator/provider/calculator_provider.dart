@@ -70,6 +70,7 @@ class CalculatorProvider extends ChangeNotifier {
     int count = 0;
 
     save['products'].forEach((e) {
+      e['count'] = int.parse(e['count']);
       price += int.tryParse("${e['data']['price'] * e['count']}") ?? 0;
       if (e['data']['is_discount']) {
         discountPrice += int.tryParse("${e['data']['discount_price'] * e['count']}") ?? 0;

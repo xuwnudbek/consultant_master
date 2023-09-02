@@ -15,7 +15,7 @@ const Map<String, String> ru = {
   "quit": "Выйти",
   "revision": "Ревизия",
   "sale": "Продажа",
-  "sale_status": "@one из @sales завершено",
+  "sale_status": "@ta из @dan завершено",
   "sum": "сум",
   "article": "Артикул",
   "sale_empty": "Список продаж пуст",
@@ -32,7 +32,7 @@ const Map<String, String> ru = {
   "add_to_cart": "Добавить в калькулятор", //перевести на английский => "Добавить в\нкорзину"
   "send": "Отправить",
   "at_least_1_product": "Выберите хотя бы 1 товар",
-  "home": "Главная страница",
+  "home": "Главная",
   "category": "Категории",
   "sale_history": "История продаж",
   "profile": "Кабинет",
@@ -45,7 +45,7 @@ const Map<String, String> ru = {
   "count_products": "Количество товаров",
   "all": "Итого",
   "discount": "Скидка",
-  "oformit": "Формализация",
+  "oformit": "Оформить",
   "search": "Поиск",
   "axsii": "Акции",
   "all_category": "Все категории",
@@ -70,4 +70,7 @@ const Map<String, String> ru = {
   "confirm_password": "Подтвердите новый пароль",
   "really_want": "Вы действительно хотите это сделать?",
   "really_quit": "Вы действительно хотите выйти?",
+
+  "login_password_error": "Неправильный логин или пароль",
+  "empty_calculator": "Калькулятор пуст",
 };

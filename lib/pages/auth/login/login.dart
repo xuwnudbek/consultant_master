@@ -78,6 +78,7 @@ class Login extends StatelessWidget {
               padding: EdgeInsets.only(left: 20, right: 20),
               child: TextFormField(
                 controller: provider.login,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "phone".tr,

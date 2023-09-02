@@ -70,4 +70,7 @@ const Map<String, String> uz = {
   "confirm_password": "Yangi parol tasdiqlash",
   "really_want": "Rostdan ham bu amalni bajarishni hohlaysizmi?",
   "really_quit": "Tizimdan chiqishni hohlaysizmi?",
+
+  "login_password_error": "Login yoki parol xato",
+  "empty_calculator": "Kalkulyator bo'sh",
 };

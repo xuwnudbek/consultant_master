@@ -7,6 +7,7 @@ import 'package:consultant_orzu/utils/widgets/pop_dialog/pop_dialog.dart';
 import 'package:consultant_orzu/utils/widgets/product_container/product_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -31,16 +32,17 @@ class CalculatorPage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                "assets/images/empty.png",
-                                height: 150,
-                                width: 150,
+                              SvgPicture.asset(
+                                "assets/images/empty.svg",
+                                height: 350,
                               ),
                               SizedBox(height: 20),
                               Text(
-                                "Jin ursin, Qodirxon 😟 \nhali hech narsa tanlanmagan ",
+                                "empty_calculator".tr,
                                 textAlign: TextAlign.center,
-                                style: Get.textTheme.bodyLarge,
+                                style: Get.textTheme.bodyLarge!.copyWith(
+                                  fontSize: 16.sp,
+                                ),
                               ),
                             ],
                           ),
@@ -173,16 +175,17 @@ class CalculatorPage extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset(
-                                      "assets/images/empty.png",
-                                      height: 150,
-                                      width: 150,
+                                    SvgPicture.asset(
+                                      "assets/images/empty.svg",
+                                      height: 350,
                                     ),
                                     SizedBox(height: 20),
                                     Text(
-                                      "Jin ursin, Qodirxon 😟 \nhali hech narsa tanlanmagan ",
+                                      "empty_calculator".tr,
                                       textAlign: TextAlign.center,
-                                      style: Get.textTheme.bodyLarge,
+                                      style: Get.textTheme.bodyLarge!.copyWith(
+                                        fontSize: 16.sp,
+                                      ),
                                     ),
                                   ],
                                 ),

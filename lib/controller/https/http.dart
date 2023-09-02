@@ -22,7 +22,7 @@ class HttpService {
   ///----------------------------------------------------------------------
 
   // static String mainUrl = "192.168.0.127:2004";
-  static String mainUrl = "192.168.0.127:2004";
+  static String mainUrl = "crib.orzugrand.uz";
   static String _mainAdditional = "api";
 
   //MainUrl

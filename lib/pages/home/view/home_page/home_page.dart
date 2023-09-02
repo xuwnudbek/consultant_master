@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${tab['name_uz']}",
+                                            "${tab['name_${HiveService.get("language")}']}",
                                             style: Get.textTheme.bodyLarge,
                                           ),
                                           SizedBox(height: 10),
@@ -154,7 +154,9 @@ class CaruselSlider extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           image: DecorationImage(
                             // colorFilter: ColorFilter.mode(Colors.black38, BlendMode.darken),
-                            image: NetworkImage(HttpService.images + carusel.first['image']),
+                            image: NetworkImage(
+                              HttpService.images + carusel.first['image'],
+                            ),
                             // AssetImage(i),
                             fit: BoxFit.cover,
                           ),

@@ -4,15 +4,16 @@ import 'package:get/get.dart';
 
 class CartPageProvider extends ChangeNotifier {
   Map listCategory = {
-    1: "sold".tr,
-    0: "orders".tr,
-    2: "denied".tr,
+    "1": "sold".tr,
+    "0": "orders".tr,
+    "2": "denied".tr,
   };
 
   var selectCategory;
 
   List dateRange = [];
   set setDateRange(value) {
+    selectCategory = null;
     dateRange = value;
     if (dateRange.isNotEmpty) {
       if (dateRange.length == 1) {
@@ -29,8 +30,9 @@ class CartPageProvider extends ChangeNotifier {
   }
 
   void onSelectItem(value) {
+    print(value.runtimeType);
     selectCategory = value;
-    sorted = sales.where((element) => element['status'] == int.parse(value)).toList();
+    sorted = sales.where((element) => element['status'] == value).toList();
     if (dateRange.isNotEmpty) {
       if (dateRange.length == 1) {
         sorted = sorted.where((element) => element['created_at'].toString().contains(dateRange[0])).toList();
@@ -83,9 +85,7 @@ class CartPageProvider extends ChangeNotifier {
         print(e['data']['price']);
         print("__________________________");
 
-        // if (e['data'][''] == null) {
-        //   return;
-        // }
+        e['count'] = int.parse(e['count']);
         price += int.tryParse("${e['data']['price'] * e['count']}") ?? 0;
         if (e['data']['is_discount']) {
           discountPrice += int.tryParse("${e['data']['discount_price'] * e['count']}") ?? 0;
@@ -101,9 +101,6 @@ class CartPageProvider extends ChangeNotifier {
         }
       });
     }
-
-    print(saleAllPrice);
-
     notifyListeners();
   }
 }
