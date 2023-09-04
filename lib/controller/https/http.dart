@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:consultant_orzu/controller/hive/hive.dart';
-import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

@@ -8,34 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AboutProductProvider extends ChangeNotifier {
-  List listAbout = [
-    {
-      "title": "Комплектация",
-      "list": [
-        {"name": "Подставка для яиц", "value": "в комплекте"},
-        {"name": "Формочки для льда", "value": "в комплекте"},
-      ]
-    },
-    {
-      "title": "Ключевые преимущества",
-      "list": [
-        {"name": "Обратите внимание", "value": "Динамическое охлаждение MultiFlow"},
-        {"name": "Хорошо продумано", "value": "Режим “отпуск”"},
-        {"name": "Пользователи оценят", "value": "Удобный сенсорный дисплей"},
-        {"name": "Формочки для льда", "value": "Складная полка"},
-      ]
-    },
-    {
-      "title": "Ключевые преимущества",
-      "list": [
-        {"name": "Обратите внимание", "value": "Динамическое охлаждение MultiFlow"},
-        {"name": "Хорошо продумано", "value": "Режим “отпуск”"},
-        {"name": "Пользователи оценят", "value": "Удобный сенсорный дисплей"},
-        {"name": "Формочки для льда", "value": "Складная полка"},
-      ]
-    }
-  ];
-
   int imageCaruselIndex = 0;
   set changeCaruselIndex(value) {
     imageCaruselIndex = value;
@@ -146,15 +118,12 @@ class AboutProductProvider extends ChangeNotifier {
     };
 
     if (initPriceController.text.isNotEmpty) {
-      params['startPrice'] = initPriceController.text.replaceAll(RegExp('r[^0-9]'), '');
-      print("${params['startPrice']?.contains(" ")}");
-    } else {
-      params['startPrice'] = "0";
+      params['startPrice'] = initPriceController.text.replaceAll(RegExp(r'[^0-9]'), '');
     }
+    //  else {
+    //   params['startPrice'] = "0";
+    // }
     notifyListeners();
-    print("---------------------------------------------------------");
-    print(params);
-    print("---------------------------------------------------------");
 
     var res = await HttpService.POST(
       HttpService.sale,

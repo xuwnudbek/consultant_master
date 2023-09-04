@@ -92,19 +92,20 @@ class CalculatorPage extends StatelessWidget {
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
-                                            "${"all".tr}:  ${MainFunc().prettyPrice(provider.allPrice)} сум",
+                                            "${"all".tr}:  ${MainFunc().prettyPrice(provider.allPrice - provider.allInitialPrice)} ${"sum".tr}",
                                             style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor, fontSize: 14.8.sp),
                                           ),
-                                          const SizedBox(width: 10),
+                                          // const SizedBox(width: 10),
                                           Visibility(
-                                            visible: provider.allDiscountPrice != 0,
+                                            visible: provider.allInitialPrice != 0,
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
-                                                  "discount".tr + ":  ",
+                                                  "initial_payment".tr + ":  ",
                                                   style: Get.textTheme.bodyMedium!.copyWith(
                                                     color: Colors.grey.shade600,
                                                     fontSize: 13.5.sp,
@@ -112,8 +113,8 @@ class CalculatorPage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "${MainFunc().prettyPrice(provider.allDiscountPrice)} сум",
-                                                  style: TextStyle(decoration: TextDecoration.lineThrough, fontWeight: FontWeight.w600, color: Colors.black87, fontSize: 14.8.sp),
+                                                  "${MainFunc().prettyPrice(provider.allInitialPrice)} ${"sum".tr}",
+                                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87, fontSize: 14.8.sp),
                                                 ),
                                               ],
                                             ),
@@ -201,7 +202,6 @@ class CalculatorPage extends StatelessWidget {
                                         initialItemCount: provider.save['products'].length,
                                         itemBuilder: (context, index, animation) {
                                           Map product = provider.save['products'][index];
-                                          product['startPrice'] = provider.save['startPrice'];
                                           return ProductContainer(
                                             key: Key("${product['id']}"),
                                             product: product,

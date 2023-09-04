@@ -10,7 +10,7 @@ class CalculatorProvider extends ChangeNotifier {
   bool isLoading = false;
   Map save = {};
   int allPrice = 0;
-  int allDiscountPrice = 0;
+  int allInitialPrice = 0;
   int countProducts = 0;
 
   String phone = "";
@@ -65,21 +65,21 @@ class CalculatorProvider extends ChangeNotifier {
 
   countPrice(Map save) async {
     if (save.isEmpty) return;
-    int discountPrice = 0;
+    int initPrice = 0;
     int price = 0;
     int count = 0;
 
     save['products'].forEach((e) {
-      e['count'] = int.parse(e['count']);
+      e['count'] = int.parse("${e['count']}");
       price += int.tryParse("${e['data']['price'] * e['count']}") ?? 0;
-      if (e['data']['is_discount']) {
-        discountPrice += int.tryParse("${e['data']['discount_price'] * e['count']}") ?? 0;
-      }
+
+      initPrice += int.tryParse("${e['startPrice']}") ?? 0;
+
       count += int.tryParse("${e['count']}") ?? 0;
     });
 
     allPrice = price;
-    allDiscountPrice = discountPrice;
+    allInitialPrice = initPrice;
     countProducts = count;
     notifyListeners();
   }

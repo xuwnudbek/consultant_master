@@ -1,3 +1,4 @@
+import 'package:consultant_orzu/controller/hive/hive.dart';
 import 'package:consultant_orzu/controller/models/category/sub_category.dart';
 
 class Category {
@@ -26,14 +27,13 @@ class Category {
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
       id: map["id"],
-      titleUz: map["title_uz"],
+      titleUz: map["title_${HiveService.get("language") ?? "uz"}"],
       titleUzc: map["title_uzc"],
       titleRu: map["title_ru"],
       image: map["image"],
       type: map["type"],
       slug: map["slug"],
-      subCategories:
-          map['children'].map((e) => SubCategory.fromMap(e)).toList(),
+      subCategories: map['children'].map((e) => SubCategory.fromMap(e)).toList(),
     );
   }
 }

@@ -79,8 +79,11 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
+    print("");
+
     var product = widget.product;
     var data = product['data'];
+
     var startPrice = int.tryParse(product['startPrice'].toString().replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
@@ -141,7 +144,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                       ),
                                     ),
                                     Text(
-                                      "${MainFunc().prettyPrice(startPrice)} ${'sum'.tr}" + " / " + "month".tr.toLowerCase(),
+                                      "${MainFunc().prettyPrice(startPrice)} ${'sum'.tr}",
                                       style: Get.textTheme.titleSmall!.copyWith(
                                         fontSize: 15.5.sp,
                                         color: Colors.white,
@@ -238,7 +241,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                                 ),
                                               ),
                                               Text(
-                                                "${MainFunc().prettyPrice(data['price'] * product['count'])} ${'sum'.tr}",
+                                                "${MainFunc().prettyPrice(data['price'] * product['count'] - (startPrice))} ${'sum'.tr}",
                                                 style: Get.textTheme.titleSmall!.copyWith(
                                                   fontSize: 14.5.sp,
                                                   color: Colors.green,
@@ -262,7 +265,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "${MainFunc().prettyPrice(data['price'] / int.parse(product['date']))} сум / мес",
+                                                "${MainFunc().prettyPrice((data['price'] * product['count'] - startPrice) / int.parse(product['date']))} ${"sum".tr} / ${"month".tr.toLowerCase()}",
                                                 style: Get.textTheme.titleSmall!.copyWith(
                                                   fontSize: 14.5.sp,
                                                   color: Colors.green,
