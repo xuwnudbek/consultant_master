@@ -11,7 +11,6 @@ import 'package:consultant_orzu/utils/widgets/loaders/cp_indicator.dart';
 import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -128,26 +127,42 @@ class AboutProduct extends StatelessWidget {
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  provider.product?.isDiscount
-                                                      ? Text(
-                                                          "${MainFunc().prettyPrice(provider.product?.discountPrice)} сум",
-                                                          style: TextStyle(
-                                                            fontWeight: FontWeight.w600,
-                                                            fontSize: 13.8.sp,
-                                                            color: Colors.grey.shade700,
-                                                            decoration: TextDecoration.lineThrough,
-                                                          ),
-                                                        )
-                                                      : SizedBox.shrink(),
-                                                  Text(
-                                                    "${MainFunc().prettyPrice(provider.product?.price)} ${"sum".tr}",
-                                                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.8.sp),
+                                                  Visibility(
+                                                    visible: provider.product?.isDiscount,
+                                                    child: Text(
+                                                      "${MainFunc().prettyPrice(provider.product?.price)} ${"sum".tr}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 13.8.sp,
+                                                        color: Colors.grey.shade700,
+                                                        decoration: TextDecoration.lineThrough,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: provider.product?.isDiscount,
+                                                    child: Text(
+                                                      "${MainFunc().prettyPrice(provider.product?.discountPrice ?? 0)} ${'sum'.tr}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 14.8.sp,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: !provider.product?.isDiscount,
+                                                    child: Text(
+                                                      "${MainFunc().prettyPrice(provider.product?.price)} ${"sum".tr}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w600,
+                                                        fontSize: 14.8.sp,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                               Text(
                                                 "${"article".tr}: ${provider.product?.article}",
-                                                // "Артикул: 20033451",
                                                 style: TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.w600,
@@ -179,17 +194,13 @@ class AboutProduct extends StatelessWidget {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      "При покупке",
+                                                      "when_buying".tr,
                                                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13.8.sp),
                                                     ),
                                                   ],
                                                 ),
                                                 Wrap(
-                                                  //   spacing: 0.0,
-                                                  //   runSpacing: 0,
                                                   children: [
-                                                    //Features
-
                                                     ...provider.badges.map((badge) {
                                                       return Container(
                                                         margin: EdgeInsets.only(right: 5, top: 10),
@@ -247,7 +258,9 @@ class AboutProduct extends StatelessWidget {
                       SizedBox(height: 10),
 
                       ///Calculator
-                      CalculatorForm(price: provider.product!.price),
+                      CalculatorForm(
+                        price: provider.product!.isDiscount ? provider.product!.discountPrice : provider.product!.price,
+                      ),
                       SizedBox(height: 110),
                     ],
                   ),
@@ -265,7 +278,7 @@ class AboutProduct extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "Часто задаваемые вопросы:",
+                "faq".tr + ":",
                 style: TextStyle(fontSize: 14.8.sp, fontWeight: FontWeight.w600),
               )
             ],
@@ -283,7 +296,6 @@ class AboutProduct extends StatelessWidget {
                 boxShadow: shadowContainer(),
               ),
               child: ExpansionTile(
-                // tilePadding: EdgeInsets.symmetric(),
                 iconColor: HexToColor.mainColor,
                 textColor: HexToColor.mainColor,
                 collapsedIconColor: HexToColor.mainColor,
@@ -445,7 +457,6 @@ class BottomSheetX extends StatelessWidget {
                         return _buildDialog(
                           provider: provider,
                           onSend: () async {
-                            print("binnima bosildi");
                             provider.formalization();
                             Get.back();
                           },
@@ -500,7 +511,7 @@ AlertDialog _buildDialog({required AboutProductProvider provider, required Funct
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Malumotlarni to'ldiring",
+          "fill_all_data".tr,
           style: Get.textTheme.titleSmall,
         ),
         GestureDetector(
@@ -561,10 +572,9 @@ AlertDialog _buildDialog({required AboutProductProvider provider, required Funct
                       hintStyle: TextStyle(
                         color: Colors.grey.withOpacity(0.7),
                       ),
-                      hintText: "Nechi oyga bo'lib to'lamoqchisiz?",
+                      hintText: "how_many_months".tr,
                       errorStyle: TextStyle(fontSize: 0),
                     ),
-                    inputFormatters: [],
                   ),
                 ),
               ],
@@ -580,7 +590,7 @@ AlertDialog _buildDialog({required AboutProductProvider provider, required Funct
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Boshlangich to'lov: ", style: Get.textTheme.bodyLarge),
+                Text("initial_payment".tr + ":", style: Get.textTheme.bodyLarge),
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: TextFormField(
@@ -607,7 +617,7 @@ AlertDialog _buildDialog({required AboutProductProvider provider, required Funct
                       hintStyle: TextStyle(
                         color: Colors.grey.withOpacity(0.7),
                       ),
-                      hintText: "Boshlang'ich to'lov qilasizmi?",
+                      hintText: "0",
                       errorStyle: TextStyle(fontSize: 0),
                     ),
                     inputFormatters: [
@@ -657,7 +667,7 @@ class InfoWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              feature['family_title_${HiveService.get("language")}'],
+              feature['family_title_${Get.locale!.languageCode}'],
               style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
             ),
           ],

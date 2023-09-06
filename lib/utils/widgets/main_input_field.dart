@@ -43,6 +43,7 @@ class _MainInputFieldState extends State<MainInputField> {
             controller: widget.controller,
             onChanged: (value) {
               if (int.tryParse(value) != null) {
+                if (widget.onChangableVisibility) return;
                 widget.controller.clear();
               }
             },

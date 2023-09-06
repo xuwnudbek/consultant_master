@@ -15,7 +15,7 @@ const Map<String, String> uz = {
   "quit": "Chiqish",
   "revision": "Qayta ko'rib chiqish",
   "sale": "Sotuv",
-  "sale_status": "@dan ta savdodan @ta tasi bajarildi",
+  "sale_status": "@dan ta savdodan @ta tasi muvofaqiyatli bajarildi",
   "sum": "so'm",
   "article": "Artikl",
   "sale_empty": "Sotuvlar ro'yxati bo'sh",
@@ -73,4 +73,12 @@ const Map<String, String> uz = {
 
   "login_password_error": "Login yoki parol xato",
   "empty_calculator": "Kalkulyator bo'sh",
+
+  "inst_payment": "Bo'ib to'lash",
+  "faq": "Ko'p so'raladigan savollar",
+  "when_buying": "Xarid vaqtida",
+  "no_connection": "Internet bilan \naloqa yo'q",
+  "how_many_months": "Nechi oyga bo'lib to'lamoqchisiz?",
+  "fill_all_data": "Ma'lumotlarni toldiring",
+  "hammasi": "Hammasi",
 };

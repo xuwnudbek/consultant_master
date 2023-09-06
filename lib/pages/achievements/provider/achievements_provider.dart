@@ -42,9 +42,9 @@ class AchievementsProvider extends ChangeNotifier {
   }
 
   getSalesAndSort(List sales) {
-    order = sales.where((element) => element['status'] == 0).toList().length;
-    sold = sales.where((element) => element['status'] == 1).toList().length;
-    denied = sales.where((element) => element['status'] == 2).toList().length;
+    order = sales.where((element) => element['status'] == "0").toList().length;
+    sold = sales.where((element) => element['status'] == '1').toList().length;
+    denied = sales.where((element) => element['status'] == "2").toList().length;
 
     print("order: $order, sold: $sold, denied: $denied");
     notifyListeners();

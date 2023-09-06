@@ -14,7 +14,7 @@ class ProfileProvider extends ChangeNotifier {
   bool isLoading = false;
 
   int sold = 0;
-  int order = 0;
+  int orders = 0;
   int denied = 0;
 
   Map seller = {};
@@ -34,8 +34,13 @@ class ProfileProvider extends ChangeNotifier {
       body: {"_method": "PUT"},
     );
 
-    if (res['status'] == HttpResponse.error || res['status'] == HttpResponse.none) {
-      MainSnackbars.error(res['data']);
+    if (res['status'] == HttpResponse.error) {
+      MainSnackbars.error("${res['data']}");
+      return;
+    }
+
+    if (res['status'] == HttpResponse.none) {
+      MainSnackbars.error("connection_error".tr);
       return;
     }
 
@@ -48,11 +53,11 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   getSalesAndSort(List sales) {
-    order = sales.where((element) => element['status'] == 0).toList().length;
-    sold = sales.where((element) => element['status'] == 1).toList().length;
-    denied = sales.where((element) => element['status'] == 2).toList().length;
+    orders = sales.length;
+    sold = sales.where((element) => element['status'] == "1").toList().length;
+    denied = sales.where((element) => element['status'] == "2").toList().length;
 
-    print("order: $order, sold: $sold, denied: $denied");
+    print("order: $orders, sold: $sold, denied: $denied");
     notifyListeners();
   }
 

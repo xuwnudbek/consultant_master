@@ -4,6 +4,7 @@ import 'package:consultant_orzu/utils/widgets/loaders/loading_indicator.dart';
 import 'package:consultant_orzu/utils/widgets/main_button.dart';
 import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -79,6 +80,9 @@ class Login extends StatelessWidget {
               child: TextFormField(
                 controller: provider.login,
                 keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(13),
+                ],
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "phone".tr,
@@ -94,22 +98,38 @@ class Login extends StatelessWidget {
                 color: HexToColor.greyTextFieldColor,
               ),
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: provider.password,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "password".tr,
-                  errorStyle: TextStyle(
-                    fontSize: 0,
-                  ),
-                  errorBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: HexToColor.error,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: provider.password,
+                      obscureText: provider.isPasswordVisible,
+                      obscuringCharacter: "*",
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "password".tr,
+                        errorStyle: TextStyle(
+                          fontSize: 0,
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexToColor.error,
+                          ),
+                        ),
+                      ),
+                      style: Theme.of(Get.context!).textTheme.bodyLarge,
                     ),
                   ),
-                ),
-                style: Theme.of(Get.context!).textTheme.bodyLarge,
+                  IconButton(
+                    onPressed: () {
+                      provider.changePasswordVisible = !provider.isPasswordVisible;
+                    },
+                    icon: Icon(
+                      provider.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 15),

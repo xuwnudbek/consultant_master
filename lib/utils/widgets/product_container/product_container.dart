@@ -59,7 +59,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
   double animatedHeight = 120;
 
   showDetailsTile() async {
-    print("showDetailsTile");
     setState(() {
       Future.delayed(Duration(milliseconds: 250)).then((value) {
         setState(() => showPriceContainer = !showPriceContainer);
@@ -79,8 +78,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    print("");
-
     var product = widget.product;
     var data = product['data'];
 
@@ -174,7 +171,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Рассрочка на:",
+                                          "inst_payment".tr + ":",
                                           style: Get.textTheme.titleSmall!.copyWith(
                                             fontSize: 14.sp,
                                             color: Colors.white,
@@ -241,7 +238,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                                 ),
                                               ),
                                               Text(
-                                                "${MainFunc().prettyPrice(data['price'] * product['count'] - (startPrice))} ${'sum'.tr}",
+                                                "${MainFunc().prettyPrice((data['discount_price'] ?? data['price']) * product['count'] - (startPrice))} ${'sum'.tr}",
                                                 style: Get.textTheme.titleSmall!.copyWith(
                                                   fontSize: 14.5.sp,
                                                   color: Colors.green,
@@ -265,7 +262,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "${MainFunc().prettyPrice((data['price'] * product['count'] - startPrice) / int.parse(product['date']))} ${"sum".tr} / ${"month".tr.toLowerCase()}",
+                                                "${MainFunc().prettyPrice(((data['discount_price'] ?? data['price']) * product['count'] - startPrice) / int.parse(product['date']))} ${"sum".tr} / ${"month".tr.toLowerCase()}",
                                                 style: Get.textTheme.titleSmall!.copyWith(
                                                   fontSize: 14.5.sp,
                                                   color: Colors.green,
@@ -331,7 +328,6 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                     onTap: () => showDetailsTile(),
                     child: Dismissible(
                       onUpdate: (details) {
-                        //if canDelete is false then return
                         if (!widget.canDelete) return;
                       },
                       key: Key("${product}"),
@@ -385,23 +381,39 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
-                                                !data['is_discount']
-                                                    ? SizedBox.shrink()
-                                                    : Text(
-                                                        "${MainFunc().prettyPrice(data['discount_price'] ?? 0)} ${'sum'.tr}",
-                                                        maxLines: 2,
-                                                        style: TextStyle(
-                                                          decoration: TextDecoration.lineThrough,
-                                                          fontWeight: FontWeight.w600,
-                                                          color: Colors.grey.shade600,
-                                                        ),
-                                                      ),
-                                                Text(
-                                                  "${MainFunc().prettyPrice(data['price'])} ${'sum'.tr}",
-                                                  maxLines: 2,
-                                                  style: Get.textTheme.titleSmall!.copyWith(
-                                                    fontSize: 15.5.sp,
-                                                    color: HexToColor.mainColor,
+                                                Visibility(
+                                                  visible: data['is_discount'],
+                                                  child: Text(
+                                                    "${MainFunc().prettyPrice(data['price'] ?? 0)} ${'sum'.tr}",
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                      decoration: TextDecoration.lineThrough,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Colors.grey.shade600,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible: data['is_discount'],
+                                                  child: Text(
+                                                    "${MainFunc().prettyPrice(data['discount_price'] ?? data['price'])} ${'sum'.tr}",
+                                                    // "${MainFunc().prettyPrice(data['dicount_price'])} ${'sum'.tr}",
+                                                    maxLines: 2,
+                                                    style: Get.textTheme.titleSmall!.copyWith(
+                                                      fontSize: 15.5.sp,
+                                                      color: HexToColor.mainColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Visibility(
+                                                  visible: !data['is_discount'],
+                                                  child: Text(
+                                                    "${MainFunc().prettyPrice(data['discountPrice'] ?? data['price'])} ${'sum'.tr}",
+                                                    maxLines: 2,
+                                                    style: Get.textTheme.titleSmall!.copyWith(
+                                                      fontSize: 15.5.sp,
+                                                      color: HexToColor.mainColor,
+                                                    ),
                                                   ),
                                                 ),
                                               ],

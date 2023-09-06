@@ -26,115 +26,100 @@ class DiscountPage extends StatelessWidget {
                   ? CPIndicator()
                   : Padding(
                       padding: EdgeInsets.all(20.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //Carusel Slider
-                            Stack(
-                              fit: StackFit.passthrough,
-                              children: [
-                                Container(
-                                  width: Get.width,
-                                  height: Get.height * 0.3,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    image: DecorationImage(
-                                      image: NetworkImage(HttpService.images + provider.carusel['image']),
-                                      fit: BoxFit.cover,
+                      child: RefreshIndicator(
+                        onRefresh: () {
+                          return provider.getDiscount(id);
+                        },
+                        child: SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Carusel Slider
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    width: Get.width,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      child: Image.network(
+                                        HttpService.images + provider.carusel['image'],
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ),
+                                ],
+                              ),
+                              SizedBox(height: 20.0),
+
+                              //Title
+                              Text(
+                                '${provider.carusel['title']}',
+                                style: Get.textTheme.titleSmall,
+                              ),
+                              SizedBox(height: 20.0),
+
+                              //Subtitle
+                              Text(
+                                '${provider.carusel['sub_title']}',
+                                style: Get.textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey.shade700,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                // Align(
-                                //   alignment: Alignment(-0.7, 0),
-                                //   child: Container(
-                                //     width: Get.width * 0.4,
-                                //     child: Text(
-                                //       '${provider.carusel['corusel_text']}',
-                                //       style: Get.textTheme.titleSmall,
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                            SizedBox(height: 20.0),
-
-                            //Title
-                            Text(
-                              '${provider.carusel['title']} Юбилейная распродажа',
-                              style: Get.textTheme.titleSmall,
-                            ),
-                            SizedBox(height: 20.0),
-
-                            //Subtitle
-                            Text(
-                              '${provider.carusel['sub_title']} Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-                              style: Get.textTheme.bodyMedium!.copyWith(
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.w700,
                               ),
-                            ),
-                            SizedBox(height: 20.0),
+                              SizedBox(height: 20.0),
 
-                            //Description
-                            Text(
-                              '${provider.carusel['description']} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, quam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, quam.',
-                              style: Get.textTheme.bodyLarge!.copyWith(
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.bold,
+                              //Description
+                              Text(
+                                '${provider.carusel['description']}',
+                                style: Get.textTheme.bodyLarge!.copyWith(
+                                  color: Colors.grey.shade700,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 20.0),
+                              SizedBox(height: 20.0),
 
-                            //Binnimalar
-
-                            Text(
-                              '''OrzuGrand раздаёт миллиарды бонусов! Стань участником программы лояльности O.orzu, покупай товары и получай бонусы за покупкию''',
-                              style: Get.textTheme.bodyLarge!.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 20.0),
-                            ...provider.carusel['conditions']
-                                .map(
-                                  (e) => Container(
-                                    margin: EdgeInsets.only(bottom: 20.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 20.0),
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.green,
-                                            child: Text(
-                                              "${provider.carusel['conditions'].indexOf(e) + 1}",
-                                              style: Get.textTheme.titleSmall!.copyWith(
-                                                color: Colors.white,
+                              SizedBox(height: 20.0),
+                              ...provider.carusel['conditions']
+                                  .map(
+                                    (e) => Container(
+                                      margin: EdgeInsets.only(bottom: 20.0),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 20.0),
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.green,
+                                              child: Text(
+                                                "${provider.carusel['conditions'].indexOf(e) + 1}",
+                                                style: Get.textTheme.titleSmall!.copyWith(
+                                                  color: Colors.white,
+                                                ),
                                               ),
+                                              maxRadius: 30,
                                             ),
-                                            maxRadius: 30,
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 15.0),
-                                          child: SizedBox(
-                                            width: Get.width * 0.7,
-                                            child: Text(
-                                              "${e['text']} Купи любой товар в период с 14 марта по 1 мая. Проверь, что ты участвуешь в нашей программе Купи любой товар в период с 14 марта по 1 мая. Проверь, что ты участвуешь в нашей программе",
-                                              style: Get.textTheme.bodyMedium!.copyWith(
-                                                color: Colors.grey.shade800,
-                                                fontWeight: FontWeight.w600,
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15.0),
+                                            child: SizedBox(
+                                              width: Get.width * 0.7,
+                                              child: Text(
+                                                "${e['text']}",
+                                                style: Get.textTheme.bodyMedium!.copyWith(
+                                                  color: Colors.grey.shade800,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                )
-                                .toList()
-                          ],
+                                  )
+                                  .toList()
+                            ],
+                          ),
                         ),
                       ),
                     ),

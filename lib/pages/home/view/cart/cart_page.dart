@@ -340,10 +340,18 @@ class ContainerCardList extends StatelessWidget {
                         children: [
                           Container(
                             height: 35,
-                            // width: 200,
-                            // margin: const EdgeInsets.only(left: 20),
-                            padding: const EdgeInsets.symmetric(horizontal: 35),
-                            decoration: BoxDecoration(color: Colors.green.shade300, borderRadius: BorderRadius.only(topRight: Radius.circular(8), bottomLeft: Radius.circular(100))),
+                            padding: const EdgeInsets.only(left: 30, right: 20),
+                            decoration: BoxDecoration(
+                              color: sale['status'] == "0"
+                                  ? Colors.green.withOpacity(0.8)
+                                  : sale['status'] == "1"
+                                      ? Colors.blue.withOpacity(0.8)
+                                      : Colors.red.withOpacity(0.8),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                bottomLeft: Radius.circular(100),
+                              ),
+                            ),
                             child: Center(
                               child: Text(
                                 "${cartProvider.listCategory[sale['status']]}",

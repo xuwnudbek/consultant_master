@@ -77,9 +77,9 @@ class ProfilePage extends StatelessWidget {
                                                 height: Get.width * 0.17,
                                                 width: Get.width * 0.17,
                                                 child: RotationTransition(
-                                                  turns: new AlwaysStoppedAnimation(-150 / 360),
+                                                  turns: new AlwaysStoppedAnimation(-180 / 360),
                                                   child: CurvedCircularProgressIndicator(
-                                                    value: 0.6,
+                                                    value: !(pd.sold / pd.orders).isNaN ? pd.sold / pd.orders : 0,
                                                     strokeWidth: 5,
                                                     animationDuration: Duration(seconds: 1),
                                                     backgroundColor: Colors.green.shade100,
@@ -90,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                                               ClipRRect(
                                                 borderRadius: BorderRadius.circular(100.0),
                                                 child: Image.network(
-                                                  "${HttpService.images}/${pd.seller['image']}",
+                                                  "${HttpService.images}${pd.seller['image']}",
                                                   fit: BoxFit.cover,
                                                   height: Get.width * 0.15,
                                                   width: Get.width * 0.15,
@@ -132,8 +132,8 @@ class ProfilePage extends StatelessWidget {
                                               SizedBox(height: 5),
                                               Text(
                                                 "sale_status".trParams({
-                                                  "dan": "${pd.seller['sales'].length}",
-                                                  "ta": "${pd.seller['sales'].length}",
+                                                  "dan": "${pd.orders}",
+                                                  "ta": "${pd.sold}",
                                                 }),
                                                 style: TextStyle(
                                                   fontSize: 12.8.sp,
@@ -157,14 +157,14 @@ class ProfilePage extends StatelessWidget {
                                                           BoxShadow(
                                                             color: Colors.grey.shade100,
                                                             spreadRadius: 0.1,
-                                                            blurRadius: 5,
+                                                            blurRadius: 10,
                                                           ),
                                                         ],
                                                       ),
                                                       child: Padding(
                                                         padding: EdgeInsets.all(5.0),
                                                         child: Image.network(
-                                                          "${HttpService.images}/${e['prize']['image']}",
+                                                          "${HttpService.images}${e['prize']['image']}",
                                                           width: 20,
                                                         ),
                                                       ),
@@ -184,16 +184,16 @@ class ProfilePage extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "sold".tr,
+                                              "orders".tr,
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.blue.shade800,
+                                                color: Colors.green.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
                                             GradientText(
-                                              '${pd.sold}',
+                                              '${pd.orders}',
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                                               radius: .4,
                                               gradientType: GradientType.linear,
@@ -211,16 +211,16 @@ class ProfilePage extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "orders".tr,
+                                              "sold".tr,
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.green.shade800,
+                                                color: Colors.blue.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
                                             GradientText(
-                                              '${pd.order}',
+                                              '${pd.sold}',
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                                               radius: .4,
                                               gradientType: GradientType.linear,

@@ -1,4 +1,5 @@
 import 'package:consultant_orzu/controller/models/product/image.dart';
+import 'package:get/get.dart';
 
 class Product {
   final int? id;
@@ -38,17 +39,17 @@ class Product {
   });
 
   factory Product.fromMap(Map<String, dynamic> map) {
-    print("____MAP::: ${map}");
+    print("____MAP::: ${Get.locale!.languageCode}");
 
     return Product(
       id: map['id'],
       categoryId: map['category_id'],
       slug: map['slug'],
       article: map['article'],
-      titleUz: map['title_uz'],
+      titleUz: map['title_${Get.locale!.languageCode}'],
       titleUzc: map['title_uzc'],
       titleRu: map['title_ru'],
-      shortDescriptionUz: map['short_description_uz'],
+      shortDescriptionUz: map['short_description_${Get.locale!.languageCode}'],
       shortDescriptionUzc: map['short_description_uzc'],
       shortDescriptionRu: map['short_description_ru'],
       price: map['price'],

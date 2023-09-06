@@ -48,6 +48,10 @@ dependencies:
   animated_digit: ^3.2.3
   searchfield: ^0.8.4
 
+  flutter_native_splash: ^2.3.2
+  connectivity_plus: ^4.0.2
+  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,7 +64,8 @@ flutter:
 
   assets:
     - assets/images/
-  #   - images/a_dot_ham.jpeg
+    - assets/fonts/
+
 
   fonts:
     - family: Montserrat
@@ -100,3 +105,5 @@ flutter:
         - asset: assets/fonts/Montserrat-BoldItalic.ttf
           weight: 700
           style: italic
+
+

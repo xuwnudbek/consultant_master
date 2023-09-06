@@ -1,5 +1,5 @@
 import 'package:consultant_orzu/controller/https/http.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class DiscountProvider extends ChangeNotifier {
   DiscountProvider(id) {
@@ -8,6 +8,8 @@ class DiscountProvider extends ChangeNotifier {
 
   Map carusel = {};
   bool isLoading = false;
+
+  Image? image;
 
   getDiscount(id) async {
     isLoading = true;
@@ -18,6 +20,7 @@ class DiscountProvider extends ChangeNotifier {
     if (res['status'] == HttpResponse.data) {
       carusel = res['data'] ?? {};
       notifyListeners();
+      image = Image.network(carusel['image']);
     } else {
       print(res);
     }

@@ -71,7 +71,7 @@ class MainProductContainer extends StatelessWidget {
                 children: [
                   SizedBox(height: 5),
                   Text(
-                    "${product!['title_${HiveService.get("language") ?? "uz"}']}",
+                    "${product!['title_${Get.locale!.countryCode ?? "uz"}']}",
                     style: TextStyle(
                       fontSize: 12.8.sp,
                       fontWeight: FontWeight.w600,
@@ -87,9 +87,9 @@ class MainProductContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Visibility(
-                            visible: product!['is_discount'],
+                            visible: product!['is_discount'] ?? false,
                             child: Text(
-                              "${product!['is_discount'] ? product!['discount_price'] : ""}  so'm",
+                              "${MainFunc().prettyPrice(product!['price'])} ${"sum".tr}",
                               style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
                                 fontSize: 12.8.sp,
@@ -98,30 +98,30 @@ class MainProductContainer extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
-                            "${MainFunc().prettyPrice(product!['price'].truncate())} so'm",
-                            style: TextStyle(
-                              fontSize: 13.7.sp,
-                              fontWeight: FontWeight.w600,
-                              color: HexToColor.mainColor,
+                          Visibility(
+                            visible: product!['is_discount'] ?? false,
+                            child: Text(
+                              "${MainFunc().prettyPrice(product!['discount_price'] ?? 0)} ${"sum".tr}",
+                              style: TextStyle(
+                                fontSize: 13.7.sp,
+                                fontWeight: FontWeight.w600,
+                                color: HexToColor.mainColor,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: !(product!['is_discount'] ?? false),
+                            child: Text(
+                              "${MainFunc().prettyPrice(product!['price'])} ${"sum".tr}",
+                              style: TextStyle(
+                                fontSize: 13.7.sp,
+                                fontWeight: FontWeight.w600,
+                                color: HexToColor.mainColor,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     onAddCalc(widgetKey);
-                      //   },
-                      //   child: Container(
-                      //     // color: Colors.red,
-                      //     child: SvgPicture.asset(
-                      //       "assets/images/calc.svg",
-                      //       height: 18.sp,
-                      //       width: 18.sp,
-                      //       color: HexToColor.mainColor,
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   )
                 ],

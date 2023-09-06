@@ -108,24 +108,6 @@ class ChangeProfile extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          // ElevatedButton(
-                                          //   style: ButtonStyle(
-                                          //     backgroundColor: MaterialStatePropertyAll(
-                                          //       HexToColor.mainColor,
-                                          //     ),
-                                          //   ),
-                                          //   onPressed: () async {
-                                          //     await provider.imagePicker();
-                                          //   },
-                                          //   child: Text(
-                                          //     "change_image".tr,
-                                          //     style: Get.textTheme.bodyMedium!.copyWith(
-                                          //       color: Colors.white,
-                                          //       fontSize: 13.sp,
-                                          //       fontWeight: FontWeight.bold,
-                                          //     ),
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ),
@@ -168,7 +150,7 @@ class ChangeProfile extends StatelessWidget {
                                           inputFormatters: [
                                             MaskTextInputFormatter(
                                               mask: "+998 ## ### ## ##",
-                                              filter: {"#": RegExp(r'[0-9]')},
+                                              filter: {"#": RegExp(r'^[0-9]')},
                                             ),
                                           ],
                                         ),
@@ -198,6 +180,7 @@ class ChangeProfile extends StatelessWidget {
                                 controller: provider.oldPassword,
                                 hintText: "old_password".tr,
                                 onChangableVisibility: true,
+                                
                               ),
                               SizedBox(height: 15),
                               _title("new_password".tr),

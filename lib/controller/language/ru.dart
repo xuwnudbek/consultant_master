@@ -15,7 +15,8 @@ const Map<String, String> ru = {
   "quit": "Выйти",
   "revision": "Ревизия",
   "sale": "Продажа",
-  "sale_status": "@ta из @dan завершено",
+  // "sale_status": "@dan ta savdodan @ta tasi muvofaqiyatli bajarildi",
+  "sale_status": "@ta из @dan завершенные продажи",
   "sum": "сум",
   "article": "Артикул",
   "sale_empty": "Список продаж пуст",
@@ -73,4 +74,12 @@ const Map<String, String> ru = {
 
   "login_password_error": "Неправильный логин или пароль",
   "empty_calculator": "Калькулятор пуст",
+
+  "inst_payment": "Рассрочка на",
+  "faq": "Часто задаваемые вопросы",
+  "when_buying": "При покупке",
+  "no_connection": "Нет подключения к\nинтернету",
+  "how_many_months": "На сколько месяцев хотите рассрочку?",
+  "fill_all_data": "Заполните данные",
+  "hammasi": "Все",
 };

@@ -79,7 +79,7 @@ class Achievements extends StatelessWidget {
                                                 child: RotationTransition(
                                                   turns: new AlwaysStoppedAnimation(-150 / 360),
                                                   child: CurvedCircularProgressIndicator(
-                                                    value: 0.6,
+                                                    value: !(pd.sold / pd.orders).isNaN ? pd.sold / pd.orders : 0,
                                                     strokeWidth: 5,
                                                     animationDuration: Duration(seconds: 1),
                                                     backgroundColor: Colors.green.shade100,
@@ -142,35 +142,38 @@ class Achievements extends StatelessWidget {
                                                 ),
                                               ),
                                               SizedBox(height: 12),
-                                              Row(
-                                                children: [
-                                                  ...pd.seller['prizs'].map((e) {
-                                                    return Container(
-                                                      width: 45,
-                                                      height: 45,
-                                                      margin: EdgeInsets.only(right: 7),
-                                                      padding: EdgeInsets.all(1),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(100),
-                                                        color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.grey.shade100,
-                                                            spreadRadius: 0.1,
-                                                            blurRadius: 5,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(5.0),
-                                                        child: Image.network(
-                                                          "${HttpService.images}/${e['prize']['image']}",
-                                                          width: 20,
+                                              SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Row(
+                                                  children: [
+                                                    ...pd.seller['prizs'].map((e) {
+                                                      return Container(
+                                                        width: 45,
+                                                        height: 45,
+                                                        margin: EdgeInsets.only(right: 7),
+                                                        padding: EdgeInsets.all(1),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(100),
+                                                          color: Colors.white,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors.grey.shade100,
+                                                              spreadRadius: 0.1,
+                                                              blurRadius: 5,
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                    );
-                                                  }),
-                                                ],
+                                                        child: Padding(
+                                                          padding: EdgeInsets.all(5.0),
+                                                          child: Image.network(
+                                                            "${HttpService.images}${e['prize']['image']}",
+                                                            width: 20,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ],
+                                                ),
                                               )
                                             ],
                                           ),
@@ -184,16 +187,16 @@ class Achievements extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "sold".tr,
+                                              "orders".tr,
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.blue.shade800,
+                                                color: Colors.green.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
                                             GradientText(
-                                              '${pd.sold}',
+                                              '${pd.orders}',
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                                               radius: .4,
                                               gradientType: GradientType.linear,
@@ -211,16 +214,16 @@ class Achievements extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "orders".tr,
+                                              "sold".tr,
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.green.shade800,
+                                                color: Colors.blue.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
                                             GradientText(
-                                              '${pd.order}',
+                                              '${pd.sold}',
                                               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                                               radius: .4,
                                               gradientType: GradientType.linear,
@@ -316,35 +319,50 @@ class AchieveCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.network(
-            "${HttpService.images}${achieve['prize']['image']}",
-            width: 0.22.dp,
-            fit: BoxFit.contain,
-          ),
-          Text(
-            "Лучший продавец недели",
-            style: Get.textTheme.bodyLarge!.copyWith(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600,
+          Expanded(
+            child: Image.network(
+              "${HttpService.images}${achieve['prize']['image']}",
+              fit: BoxFit.contain,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Продать товаров 20 из 20",
-                style: Get.textTheme.bodyLarge!.copyWith(
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.w500,
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  "${achieve['prize']['title']}",
+                  style: Get.textTheme.bodyLarge!.copyWith(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(width: 5),
-              Icon(
-                Icons.check_circle_rounded,
-                color: Colors.green,
-                size: 20,
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: Get.width * 0.4,
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: Text(
+                        "${achieve['prize']['description']}",
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        textScaleFactor: 0.9,
+                        textAlign: TextAlign.center,
+                        style: Get.textTheme.bodyMedium!.copyWith(
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    // SizedBox(width: 5),
+                    // Icon(
+                    //   Icons.check_circle_rounded,
+                    //   color: Colors.green,
+                    //   size: 20,
+                    // )
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

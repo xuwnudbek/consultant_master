@@ -1,4 +1,5 @@
 import 'package:consultant_orzu/controller/models/category/brand.dart';
+import 'package:get/get.dart';
 
 class SubCategory {
   int id;
@@ -24,7 +25,7 @@ class SubCategory {
   factory SubCategory.fromMap(Map<String, dynamic> map) {
     return SubCategory(
       id: map["id"],
-      titleUz: map["title_uz"],
+      titleUz: map["title_${Get.locale!.languageCode}"],
       titleUzc: map["title_uzc"],
       titleRu: map["title_ru"],
       image: map["image"],
@@ -34,13 +35,3 @@ class SubCategory {
     );
   }
 }
-
-/*
-  "id": 7,
-  "title_uz": "asdqasd",
-  "title_uzc": "qdasdsa",
-  "title_ru": "asdasdasd",
-  "image": "https://app.orzugrand.uz/storage/uploads/categories/1681715924W9nFebHtOaTMxXq6.jpeg",
-  "type": 2,
-  "slug": "samsung-televizorlari-1",
-*/

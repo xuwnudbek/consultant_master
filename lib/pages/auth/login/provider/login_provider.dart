@@ -8,6 +8,12 @@ class LoginProvider extends ChangeNotifier {
   var login = TextEditingController();
   var password = TextEditingController();
   bool isLoading = false;
+  
+  bool isPasswordVisible = true;
+  set changePasswordVisible(value) {
+    isPasswordVisible = value;
+    notifyListeners();
+  }
 
   LoginProvider() {
     language = Hive.box("db").get("language") ?? "uz";

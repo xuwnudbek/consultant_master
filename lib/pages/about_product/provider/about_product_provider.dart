@@ -44,16 +44,16 @@ class AboutProductProvider extends ChangeNotifier {
 
       await getQuestions(product?.categoryId ?? 0);
       notifyListeners();
-
-      print("_____________________QA:: " + questions.toString());
-    } else {
-      print(res['data']);
-    }
+    } else {}
 
     isLoading = false;
     notifyListeners();
 
-    changeBottomPrice = product?.price?.truncate() ?? product?.discountPrice?.truncate() ?? 0;
+    if (product!.isDiscount) {
+      changeBottomPrice = product?.discountPrice?.truncate() ?? 0;
+    } else {
+      changeBottomPrice = product?.price?.truncate() ?? 0;
+    }
   }
 
   ///[id] is  product's category id
@@ -119,10 +119,9 @@ class AboutProductProvider extends ChangeNotifier {
 
     if (initPriceController.text.isNotEmpty) {
       params['startPrice'] = initPriceController.text.replaceAll(RegExp(r'[^0-9]'), '');
+    } else {
+      params['startPrice'] = "0";
     }
-    //  else {
-    //   params['startPrice'] = "0";
-    // }
     notifyListeners();
 
     var res = await HttpService.POST(
@@ -138,6 +137,15 @@ class AboutProductProvider extends ChangeNotifier {
     }
 
     isFormalizating = false;
+    notifyListeners();
+
+    clear();
+  }
+
+  clear() {
+    dateController.clear();
+    initPriceController.clear();
+    bottomCount = 0;
     notifyListeners();
   }
 }

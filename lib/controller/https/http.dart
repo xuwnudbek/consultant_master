@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:consultant_orzu/controller/hive/hive.dart';
+import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -72,13 +73,11 @@ class HttpService {
 
       return response;
     } catch (e) {
-      print(e);
       response = {
         "status": HttpResponse.none,
         "data": "connection_error".tr,
       };
-
-      return response;
+      MainSnackbars.error("connection_error".tr);
     }
   }
 

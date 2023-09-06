@@ -40,29 +40,35 @@ class HomePage extends StatelessWidget {
                       shrinkWrap: true,
                       // physics: AlwaysScrollableScrollPhysics(),
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-                          child: Row(
+                        //Carusel
+                        Visibility(
+                          visible: !provider.isLoading && provider.carusel.isNotEmpty,
+                          child: Column(
                             children: [
-                              Text(
-                                "axsii".tr,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "axsii".tr,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              CaruselSlider(provider.carusel),
                             ],
                           ),
                         ),
-
-                        //Carusel
-                        CaruselSlider(provider.carusel),
 
                         //Loader
                         Visibility(
                           visible: provider.isLoading,
                           child: Padding(
-                            padding: EdgeInsets.only(top: Get.height * 1 / 6),
+                            padding: EdgeInsets.only(top: Get.height * 0.4),
                             child: Center(child: CPIndicator()),
                           ),
                         ),
@@ -78,6 +84,7 @@ class HomePage extends StatelessWidget {
                                 children: [
                                   ...provider.tabs.map(
                                     (tab) {
+                                      if (tab['products'].isEmpty) return SizedBox(height: 0);
                                       return Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [

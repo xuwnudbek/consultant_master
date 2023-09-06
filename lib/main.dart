@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consultant_orzu/controller/hive/hive.dart';
+import 'package:consultant_orzu/pages/connection/connection.dart';
 import 'package:consultant_orzu/pages/home/home.dart';
 import 'package:consultant_orzu/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
@@ -92,10 +94,11 @@ class MyApp extends StatelessWidget {
                 canvasColor: HexToColor.mainColor,
                 // ),
               ),
-              // home: Home(),
-              // home: Login(),
               home: Consumer<MainProvider>(
                 builder: (context, provider, _) {
+                  if (provider.connection == ConnectivityResult.none) {
+                    return CheckConnection();
+                  }
                   return provider.token != null ? Home() : Welcome();
                 },
               ),
@@ -109,12 +112,15 @@ class MyApp extends StatelessWidget {
 ////
 
 class MainProvider extends ChangeNotifier {
+  ConnectivityResult? connection;
+
   var db = Hive.box("db");
   String? token;
   String? language;
   Map seller = {};
 
   MainProvider() {
+    checkConnection();
     token = db.get("token");
     db.watch(key: "token").listen((event) {
       onChangeToken();
@@ -141,5 +147,15 @@ class MainProvider extends ChangeNotifier {
     language = db.get("language");
     Get.updateLocale(Locale(language ?? "uz"));
     notifyListeners();
+  }
+
+  checkConnection() async {
+    connection = await Connectivity().checkConnectivity();
+    notifyListeners();
+
+    Connectivity().onConnectivityChanged.listen((event) {
+      connection = event;
+      notifyListeners();
+    });
   }
 }

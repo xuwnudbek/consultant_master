@@ -68,7 +68,7 @@ class CalculatorPage extends StatelessWidget {
                         extendBody: true,
                         //Bottom navbar
                         bottomNavigationBar: Visibility(
-                          visible: provider.save['products'].isNotEmpty,
+                          visible: provider.save.isNotEmpty && provider.save['products'].isNotEmpty,
                           child: Container(
                             height: Get.height * 0.1,
                             width: 200,
@@ -88,38 +88,39 @@ class CalculatorPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         "${"count_products".tr} :  ${provider.countProducts}",
-                                        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey.shade600, fontSize: 14.8.sp),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey.shade600,
+                                          fontSize: 14.sp,
+                                        ),
                                       ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            "${"all".tr}:  ${MainFunc().prettyPrice(provider.allPrice - provider.allInitialPrice)} ${"sum".tr}",
-                                            style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor, fontSize: 14.8.sp),
-                                          ),
-                                          // const SizedBox(width: 10),
-                                          Visibility(
-                                            visible: provider.allInitialPrice != 0,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  "initial_payment".tr + ":  ",
-                                                  style: Get.textTheme.bodyMedium!.copyWith(
-                                                    color: Colors.grey.shade600,
-                                                    fontSize: 13.5.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "${MainFunc().prettyPrice(provider.allInitialPrice)} ${"sum".tr}",
-                                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87, fontSize: 14.8.sp),
-                                                ),
-                                              ],
+                                      Text(
+                                        "${"all".tr}:  ${MainFunc().prettyPrice(provider.allPrice - provider.allInitialPrice)} ${"sum".tr}",
+                                        style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor, fontSize: 14.8.sp),
+                                      ),
+                                      Visibility(
+                                        visible: provider.allInitialPrice != 0,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "initial_payment".tr + ":  ",
+                                              style: Get.textTheme.bodyMedium!.copyWith(
+                                                color: Colors.grey.shade600,
+                                                fontSize: 13.5.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            Text(
+                                              "${MainFunc().prettyPrice(provider.allInitialPrice)} ${"sum".tr}",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black87,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),
@@ -207,14 +208,12 @@ class CalculatorPage extends StatelessWidget {
                                             product: product,
                                             onChangeCount: provider.onChangeCount,
                                             onDelete: () {
-                                              //First of all delete from list
                                               _animatedListKey.currentState!.removeItem(
                                                 index,
                                                 (context, animation) => Container(),
                                                 duration: Duration(milliseconds: 700),
                                               );
                                               provider.onDeleteProduct(product['id']);
-                                              //Then delete from animated list
                                             },
                                           );
                                         },

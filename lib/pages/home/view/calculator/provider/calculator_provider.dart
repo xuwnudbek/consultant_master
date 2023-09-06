@@ -48,7 +48,6 @@ class CalculatorProvider extends ChangeNotifier {
       HttpService.save,
       base: HttpService.mainUrl,
     );
-    print("res $res");
 
     if (res['status'] == HttpResponse.data) {
       save = res['data'];
@@ -71,7 +70,7 @@ class CalculatorProvider extends ChangeNotifier {
 
     save['products'].forEach((e) {
       e['count'] = int.parse("${e['count']}");
-      price += int.tryParse("${e['data']['price'] * e['count']}") ?? 0;
+      price += int.tryParse("${(e['data']['discount_price'] ?? e['data']['price']) * e['count']}") ?? 0;
 
       initPrice += int.tryParse("${e['startPrice']}") ?? 0;
 
@@ -113,13 +112,11 @@ class CalculatorProvider extends ChangeNotifier {
       body: {"_method": "DELETE"},
     );
 
-    print(res);
-
     onRefresh(withOutLoading: true);
 
     notifyListeners();
 
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
   }
 
   void deleteSave() async {

@@ -31,16 +31,27 @@ class ChangeProfileProvider extends ChangeNotifier {
     isSaving = true;
     notifyListeners();
 
+    var fting = "+" + phoneController.text.replaceAll(RegExp(r'[^0-9]'), '');
+
     var data = {
       "name": nameController.text,
       "email": emailController.text,
+      "surname": surnameController.text,
+      "phone": fting,
       "old_password": oldPassword.text,
       "password": newPassword.text,
       "confirm_password": confirmPassword.text,
       "_method": "PUT",
     };
 
+    if (fting.length < 13) {
+      MainSnackbars.warning("Telefon raqam noto'g'ri");
+      return;
+    }
+
     if (nameController.text.isEmpty) data.remove("name");
+    if (surnameController.text.isEmpty) data.remove("surname");
+    if (phoneController.text.isEmpty) data.remove("phone");
     if (emailController.text.isEmpty) data.remove("email");
     if (oldPassword.text.isEmpty) data.remove("old_password");
     if (newPassword.text.isEmpty) data.remove("password");
@@ -53,23 +64,22 @@ class ChangeProfileProvider extends ChangeNotifier {
     var res = await HttpService.POST(
       HttpService.saller + "/$sellerId",
       base: HttpService.mainUrl,
-      body: {"_method": "PUT", ...data},
+      body: data,
     );
 
-    if (res['status'] == HttpResponse.data) {
-      if (!(res['data'] is Map)) return;
+    print(res);
 
-      switch (res['data'].runtimeType) {
-        case String:
-          MainSnackbars.warning(res['data']);
-          break;
-        case Map:
-          seller = res['data'];
-          break;
-        default:
+    if (res['status'] == HttpResponse.data) {
+      // if (!(res['data'] is Map)) return;
+      if (res['data'].runtimeType == String) {
+        MainSnackbars.warning(res['data']);
+        return;
+      } else if (res['data'].runtimeType == Map) {
+        seller = res['data'];
       }
       MainSnackbars.success("saved_changes".tr);
     } else {
+      print(res['data']);
       MainSnackbars.success("${res['data']}");
     }
 
@@ -78,12 +88,10 @@ class ChangeProfileProvider extends ChangeNotifier {
   }
 
   setSellerData() {
-    print(seller);
     nameController.value = TextEditingValue(text: seller['name']);
     surnameController.value = TextEditingValue(text: seller['surname']);
     emailController.value = TextEditingValue(text: seller['email']);
     phoneController.value = TextEditingValue(text: seller['phone']);
-
     notifyListeners();
   }
 
@@ -92,7 +100,11 @@ class ChangeProfileProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    var res = await HttpService.POST(HttpService.saller + "/$sellerId", base: HttpService.mainUrl, body: {"_method": "PUT"});
+    var res = await HttpService.POST(
+      HttpService.saller + "/$sellerId",
+      base: HttpService.mainUrl,
+      body: {"_method": "PUT"},
+    );
     seller = res['data'];
     notifyListeners();
 
@@ -111,7 +123,7 @@ class ChangeProfileProvider extends ChangeNotifier {
       MainSnackbars.warning("${'surname'.tr} bo'sh bo'lmasligi kerak");
       return false;
     }
-    if (phoneController.text.isEmpty) {
+    if (phoneController.text.isEmpty || phoneController.text.length < 9) {
       MainSnackbars.warning("${'phone'.tr} bo'sh bo'lmasligi kerak");
       return false;
     }
@@ -163,7 +175,6 @@ class ChangeProfileProvider extends ChangeNotifier {
         notifyListeners();
       }
     });
-
     refresh();
   }
 
