@@ -70,17 +70,15 @@ class ChangeProfileProvider extends ChangeNotifier {
     print(res);
 
     if (res['status'] == HttpResponse.data) {
-      // if (!(res['data'] is Map)) return;
       if (res['data'].runtimeType == String) {
-        MainSnackbars.warning(res['data']);
+        MainSnackbars.error("incorrect_password".tr);
         return;
       } else if (res['data'].runtimeType == Map) {
         seller = res['data'];
       }
       MainSnackbars.success("saved_changes".tr);
     } else {
-      print(res['data']);
-      MainSnackbars.success("${res['data']}");
+      MainSnackbars.warning(res['data']);
     }
 
     isSaving = false;
@@ -91,7 +89,14 @@ class ChangeProfileProvider extends ChangeNotifier {
     nameController.value = TextEditingValue(text: seller['name']);
     surnameController.value = TextEditingValue(text: seller['surname']);
     emailController.value = TextEditingValue(text: seller['email']);
-    phoneController.value = TextEditingValue(text: seller['phone']);
+    phoneController.value = TextEditingValue(
+      text: seller['phone'],
+      selection: TextSelection.fromPosition(
+        TextPosition(
+          offset: seller['phone'].length,
+        ),
+      ),
+    );
     notifyListeners();
   }
 
@@ -124,26 +129,26 @@ class ChangeProfileProvider extends ChangeNotifier {
       return false;
     }
     if (phoneController.text.isEmpty || phoneController.text.length < 9) {
-      MainSnackbars.warning("${'phone'.tr} bo'sh bo'lmasligi kerak");
+      MainSnackbars.warning("${'phone'.tr} " + "empty".tr);
       return false;
     }
     if (emailController.text.isEmpty) {
       MainSnackbars.warning("${'email'.tr} bo'sh bo'lmasligi kerak");
       return false;
     } else if (!emailController.text.isEmail) {
-      MainSnackbars.warning("${emailController.text} bu email emas");
+      MainSnackbars.warning("${emailController.text} " + "not_email".tr);
     }
 
     if (oldPassword.text.isEmpty & (newPassword.text.isNotEmpty || confirmPassword.text.isNotEmpty)) {
-      MainSnackbars.warning("${'old_password'.tr} bo'sh bo'lmasligi kerak");
+      MainSnackbars.warning("${'old_password'.tr} " + "empty".tr);
       return false;
     }
     if (newPassword.text.isNotEmpty & confirmPassword.text.isEmpty) {
-      MainSnackbars.warning("${'new_password'.tr} ni tasdiqlash kerak");
+      MainSnackbars.warning("${'new_password'.tr} " + "doesnt_match".tr);
       return false;
     }
     if (newPassword.text.isEmpty & confirmPassword.text.isNotEmpty) {
-      MainSnackbars.warning("${'new_password'.tr} ni kiriting kerak");
+      MainSnackbars.warning("${'new_password'.tr} " + "need_to_fill".tr);
       return false;
     }
 
@@ -155,7 +160,7 @@ class ChangeProfileProvider extends ChangeNotifier {
 
     if (oldPassword.text.isNotEmpty & (newPassword.text.isNotEmpty & confirmPassword.text.isNotEmpty)) {
       if (newPassword.text != confirmPassword.text) {
-        MainSnackbars.warning("Yangi parollar mos emas");
+        MainSnackbars.warning("new_password".tr + " " + "doesnt_match".tr);
         return false;
       }
     }

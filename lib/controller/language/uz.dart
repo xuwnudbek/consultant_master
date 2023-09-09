@@ -81,4 +81,13 @@ const Map<String, String> uz = {
   "how_many_months": "Nechi oyga bo'lib to'lamoqchisiz?",
   "fill_all_data": "Ma'lumotlarni toldiring",
   "hammasi": "Hammasi",
+  "incorrect_password": "Parol noto'g'ri",
+
+  "empty": "bo'sh",
+  "not_email": "E-mail noto'g'ri",
+  "doesnt_match": "mos emas",
+  "need_to_fill": "to'ldirilishi kerak",
+
+  "added_to_calculator": "Kalkulyatorga qo'shildi",
+  "incorrect_phone": "Telefon raqam noto'g'ri kiritilgan",
 };

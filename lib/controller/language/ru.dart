@@ -4,7 +4,7 @@ const Map<String, String> ru = {
   "welcome": "Добро пожаловать",
   "convenience_with_us": "С нами удобно",
   "salesman": "Продавец",
-  "sold": "Проданые",
+  "sold": "Проданные",
   "order": "Заказ",
   "orders": "Заказы",
   "goods_number": "Количество товаров",
@@ -15,7 +15,6 @@ const Map<String, String> ru = {
   "quit": "Выйти",
   "revision": "Ревизия",
   "sale": "Продажа",
-  // "sale_status": "@dan ta savdodan @ta tasi muvofaqiyatli bajarildi",
   "sale_status": "@ta из @dan завершенные продажи",
   "sum": "сум",
   "article": "Артикул",
@@ -32,7 +31,7 @@ const Map<String, String> ru = {
   "month_must_be_filled": "Месяц должен быть заполнен",
   "add_to_cart": "Добавить в калькулятор", //перевести на английский => "Добавить в\нкорзину"
   "send": "Отправить",
-  "at_least_1_product": "Выберите хотя бы 1 товар",
+  "at_least_1_product": "Добавьте хотя бы один товар",
   "home": "Главная",
   "category": "Категории",
   "sale_history": "История продаж",
@@ -82,4 +81,13 @@ const Map<String, String> ru = {
   "how_many_months": "На сколько месяцев хотите рассрочку?",
   "fill_all_data": "Заполните данные",
   "hammasi": "Все",
+  "incorrect_password": "Неверный пароль",
+
+  "empty": "пусто",
+  "not_email": "неверный e-mail",
+  "doesnt_match": "не совпадают",
+  "need_to_fill": "нужно заполнить",
+
+  "added_to_calculator": "Добавлено в калькулятор",
+  "incorrect_phone": "Неверно введен номер телефона",
 };

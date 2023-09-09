@@ -146,7 +146,7 @@ class ChangeProfile extends StatelessWidget {
                                         MainInputField(
                                           isEnabled: provider.isEnabled,
                                           controller: provider.phoneController,
-                                          hintText: "",
+                                          hintText: "+998 99 290 26 14",
                                           inputFormatters: [
                                             MaskTextInputFormatter(
                                               mask: "+998 ## ### ## ##",
@@ -180,7 +180,6 @@ class ChangeProfile extends StatelessWidget {
                                 controller: provider.oldPassword,
                                 hintText: "old_password".tr,
                                 onChangableVisibility: true,
-                                
                               ),
                               SizedBox(height: 15),
                               _title("new_password".tr),

@@ -278,9 +278,9 @@ class ContainerCardList extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(4), bottomLeft: Radius.circular(4)),
                           color: sale['status'] == "0"
-                              ? Colors.green.withOpacity(0.5)
+                              ? Colors.blue.withOpacity(0.5)
                               : sale['status'] == "1"
-                                  ? Colors.blue.withOpacity(0.5)
+                                  ? Colors.green.withOpacity(0.5)
                                   : Colors.red.withOpacity(0.5),
                         ),
                       ),
@@ -343,9 +343,9 @@ class ContainerCardList extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 30, right: 20),
                             decoration: BoxDecoration(
                               color: sale['status'] == "0"
-                                  ? Colors.green.withOpacity(0.8)
+                                  ? Colors.blue.withOpacity(0.8)
                                   : sale['status'] == "1"
-                                      ? Colors.blue.withOpacity(0.8)
+                                      ? Colors.green.withOpacity(0.8)
                                       : Colors.red.withOpacity(0.8),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(8),

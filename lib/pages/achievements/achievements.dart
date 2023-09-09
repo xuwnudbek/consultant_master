@@ -132,8 +132,8 @@ class Achievements extends StatelessWidget {
                                               SizedBox(height: 5),
                                               Text(
                                                 "sale_status".trParams({
-                                                  "dan": "${pd.seller['sales'].length}",
-                                                  "ta": "${pd.seller['sales'].length}",
+                                                  "dan": "${pd.orders}",
+                                                  "ta": "${pd.sold}",
                                                 }),
                                                 style: TextStyle(
                                                   fontSize: 12.8.sp,
@@ -164,10 +164,13 @@ class Achievements extends StatelessWidget {
                                                           ],
                                                         ),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(5.0),
-                                                          child: Image.network(
-                                                            "${HttpService.images}${e['prize']['image']}",
-                                                            width: 20,
+                                                          padding: EdgeInsets.all(1.0),
+                                                          child: ClipRRect(
+                                                            borderRadius: BorderRadius.circular(100.0),
+                                                            child: Image.network(
+                                                              "${HttpService.images}${e['prize']['image']}",
+                                                              fit: BoxFit.contain,
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -191,7 +194,7 @@ class Achievements extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.green.shade800,
+                                                color: Colors.blue.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
@@ -218,7 +221,7 @@ class Achievements extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.blue.shade800,
+                                                color: Colors.green.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
@@ -316,55 +319,58 @@ class AchieveCard extends StatelessWidget {
           )
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: Image.network(
-              "${HttpService.images}${achieve['prize']['image']}",
-              fit: BoxFit.contain,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: Image.network(
+                "${HttpService.images}${achieve['prize']['image']}",
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  "${achieve['prize']['title']}",
-                  style: Get.textTheme.bodyLarge!.copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: Get.width * 0.4,
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      child: Text(
-                        "${achieve['prize']['description']}",
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        textScaleFactor: 0.9,
-                        textAlign: TextAlign.center,
-                        style: Get.textTheme.bodyMedium!.copyWith(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
-                        ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: Get.width * 0.35,
+                    child: Text(
+                      "${achieve['prize']['title']}",
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      textScaleFactor: 0.95,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    // SizedBox(width: 5),
-                    // Icon(
-                    //   Icons.check_circle_rounded,
-                    //   color: Colors.green,
-                    //   size: 20,
-                    // )
-                  ],
-                ),
-              ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: Get.width * 0.4,
+                        padding: EdgeInsets.only(left: 10, right: 10, top: 5),
+                        child: Text(
+                          "${achieve['prize']['description']}",
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textScaleFactor: 0.8,
+                          textAlign: TextAlign.center,
+                          style: Get.textTheme.bodyMedium!.copyWith(
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

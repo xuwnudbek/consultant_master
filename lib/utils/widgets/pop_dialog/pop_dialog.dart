@@ -1,4 +1,5 @@
 import 'package:consultant_orzu/utils/hex_to_color.dart';
+import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -60,10 +61,12 @@ class _PopDialogState extends State<PopDialog> {
             if (numberController.text.length == 13) {
               widget.onSend(numberController.text);
               Get.back();
+            } else {
+              MainSnackbars.error("incorrect_phone".tr);
             }
           },
           child: Text(
-            "Send",
+            "send".tr,
             style: TextStyle(
               fontSize: 17,
               color: Colors.white,

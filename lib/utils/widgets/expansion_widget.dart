@@ -54,13 +54,11 @@ class _ExpansionWidgetState extends State<ExpansionWidget> {
               width: 21.sp,
               // color: HexToColor.mainColor,
             ),
+            // controlAffinity: ListTileControlAffinity.trailing,
+            // trailing: widget.category.subCategories.length == 0 ? SizedBox.shrink() : null,
             onExpansionChanged: (value) {
               provider.onChanged();
-              print(widget.category.id.toString() == provider.selectedCategory);
               provider.selectedCategory = value ? widget.category.id.toString() : null;
-              if (value && widget.category.subCategories.length == 0) {
-                // provider.onSelectCategory(breadCrumbs: "/${category.titleUz}");
-              }
             },
             title: Text(
               widget.category.titleUz,
@@ -91,6 +89,8 @@ class _ExpansionWidgetState extends State<ExpansionWidget> {
         textColor: HexToColor.mainColor,
         collapsedTextColor: Colors.grey.shade700,
         collapsedIconColor: Colors.grey.shade700,
+        controlAffinity: ListTileControlAffinity.trailing,
+        trailing: subCategory.brands.length == 0 ? SizedBox.shrink() : null,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Colors.transparent),
         ),

@@ -188,7 +188,7 @@ class ProfilePage extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.green.shade800,
+                                                color: Colors.blue.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),
@@ -215,7 +215,7 @@ class ProfilePage extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 14.8.sp,
                                                 fontWeight: FontWeight.w600,
-                                                color: Colors.blue.shade800,
+                                                color: Colors.green.shade800,
                                               ),
                                             ),
                                             SizedBox(height: 10),

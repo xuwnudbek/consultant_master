@@ -27,6 +27,8 @@ class CalculatorProvider extends ChangeNotifier {
       body: {"phone": phone},
       base: HttpService.mainUrl,
     );
+
+    print(res);
     if (res['status'] == HttpResponse.data) {
       MainSnackbars.success("save_sent".tr);
     }

@@ -59,7 +59,6 @@ class AboutProductProvider extends ChangeNotifier {
   ///[id] is  product's category id
   getQuestions(id) async {
     var res = await HttpService.GET(HttpService.getQuestions + "/$id", base: HttpService.mainUrl);
-
     if (res['status'] == HttpResponse.data) {
       questions = res['data'];
     } else {
@@ -93,8 +92,6 @@ class AboutProductProvider extends ChangeNotifier {
     bottomCount--;
     notifyListeners();
   }
-
-  //TextEditingControllers
 
   var dateController = TextEditingController();
   var initPriceController = TextEditingController();
@@ -131,9 +128,9 @@ class AboutProductProvider extends ChangeNotifier {
     );
 
     if (res['status'] == HttpResponse.data) {
-      MainSnackbars.success("Buyurtma kalkulyatorga qo'shildi");
+      MainSnackbars.success("added_to_calculator".tr);
     } else {
-      MainSnackbars.success("${res['data']}");
+      MainSnackbars.error("${res['data']}");
     }
 
     isFormalizating = false;

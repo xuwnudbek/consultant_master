@@ -52,7 +52,7 @@ class _MainInputFieldState extends State<MainInputField> {
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.grey),
+              hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.grey.shade400),
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: HexToColor.mainColor),
                 borderRadius: BorderRadius.circular(10),
