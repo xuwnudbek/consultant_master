@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 class CartPageProvider extends ChangeNotifier {
   Map listCategory = {
     "all": "hammasi".tr,
+    "0": "waiting_order".tr,
     "1": "sold".tr,
-    "0": "orders".tr,
     "2": "denied".tr,
   };
+
+  
 
   var selectCategory;
 
@@ -31,7 +33,7 @@ class CartPageProvider extends ChangeNotifier {
   }
 
   void onSelectItem(value) {
-    print(value.runtimeType);
+    (value.runtimeType);
     selectCategory = value;
     sorted = sales.where((element) => element['status'] == value || value == "all").toList();
     if (dateRange.isNotEmpty) {

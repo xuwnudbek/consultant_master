@@ -28,7 +28,7 @@ class CalculatorProvider extends ChangeNotifier {
       base: HttpService.mainUrl,
     );
 
-    print(res);
+    (res);
     if (res['status'] == HttpResponse.data) {
       MainSnackbars.success("save_sent".tr);
     }

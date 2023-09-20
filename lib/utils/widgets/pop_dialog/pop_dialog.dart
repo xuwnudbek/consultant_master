@@ -26,7 +26,7 @@ class _PopDialogState extends State<PopDialog> {
       title: Stack(
         children: [
           Text(
-            "Mijozning telefon raqamini\nkiriting",
+            "enter_client_number".tr,
             style: Theme.of(context).textTheme.titleSmall,
           ),
           Positioned(
@@ -57,7 +57,7 @@ class _PopDialogState extends State<PopDialog> {
       actions: [
         MaterialButton(
           onPressed: () {
-            print("${numberController.text}");
+            ("${numberController.text}");
             if (numberController.text.length == 13) {
               widget.onSend(numberController.text);
               Get.back();
@@ -118,12 +118,6 @@ class _PopDialogState extends State<PopDialog> {
               ],
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              numberController.clear();
-            },
-          )
         ],
       ),
     );

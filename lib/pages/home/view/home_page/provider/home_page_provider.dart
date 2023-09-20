@@ -27,7 +27,7 @@ class HomePageProvider extends ChangeNotifier {
       discounts = res['data']['data'];
       notifyListeners();
     } else {
-      print(res['data']);
+      (res['data']);
     }
 
     isLoading = false;
@@ -44,7 +44,7 @@ class HomePageProvider extends ChangeNotifier {
       tabs = res['data']['data'];
       notifyListeners();
     } else {
-      print(res['data']);
+      (res['data']);
     }
 
     isLoading = false;
@@ -61,7 +61,7 @@ class HomePageProvider extends ChangeNotifier {
       carusel = res['data'];
       notifyListeners();
     } else {
-      print(res['data']);
+      (res['data']);
     }
 
     isCaruselLoading = false;

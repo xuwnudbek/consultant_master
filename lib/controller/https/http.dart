@@ -48,15 +48,12 @@ class HttpService {
     var response;
     try {
       var uri = Uri.http(base, url, params);
-      print("______________${uri}");
 
       var res = await http.post(
         uri,
         body: body,
         headers: headers,
       );
-
-      print(res.statusCode);
 
       if (res.statusCode < 299) {
         response = {
@@ -68,7 +65,6 @@ class HttpService {
           "status": HttpResponse.error,
           "data": jsonDecode(res.body),
         };
-        print(res.statusCode);
       }
 
       return response;
@@ -84,11 +80,11 @@ class HttpService {
   static GET(url, {required base, params}) async {
     var response;
     var uri = Uri.http(base, url, params);
-    print(uri);
+    (uri);
 
     try {
       var uri = Uri.http(base, url, params);
-      print("uri: ${uri}");
+      ("uri: ${uri}");
       var res = await http.get(uri, headers: headers);
 
       if (res.statusCode < 299) {

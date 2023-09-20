@@ -16,6 +16,7 @@ class ProfileProvider extends ChangeNotifier {
   int sold = 0;
   int orders = 0;
   int denied = 0;
+  int waiting = 0;
 
   Map seller = {};
 
@@ -57,7 +58,9 @@ class ProfileProvider extends ChangeNotifier {
     sold = sales.where((element) => element['status'] == "1").toList().length;
     denied = sales.where((element) => element['status'] == "2").toList().length;
 
-    print("order: $orders, sold: $sold, denied: $denied");
+    waiting = sales.where((element) => element['status'] == "0").toList().length;
+
+    ("order: $orders, sold: $sold, denied: $denied");
     notifyListeners();
   }
 

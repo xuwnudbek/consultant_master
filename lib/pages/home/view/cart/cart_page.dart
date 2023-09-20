@@ -113,11 +113,11 @@ class CartPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(15),
                                         dialogBackgroundColor: Colors.white,
                                       );
-                                      print(result);
+                                      (result);
                                       if (result != null) {
                                         provider.setDateRange = result;
                                       } else {
-                                        print("null");
+                                        ("null");
                                       }
                                     },
                                     child: SvgPicture.asset("assets/images/calendar.svg"),
@@ -254,7 +254,7 @@ class ContainerCardList extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     provider.onAnimated();
-                    print("onAnimate");
+                    ("onAnimate");
                   },
                   onHorizontalDragUpdate: (details) {
                     provider.onSwipe(details);
@@ -301,46 +301,47 @@ class ContainerCardList extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "goods_number".tr + ":",
-                                    style: TextStyle(fontWeight: FontWeight.w600),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    "${cartProvider.saleAllPrice[sale['id']]!['count']}",
+                        flex: 3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "goods_number".tr + ":",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "${cartProvider.saleAllPrice[sale['id']]!['count']}",
+                                  style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "all_price".tr + ":",
+                                  style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey.shade600),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    "${MainFunc().prettyPrice(cartProvider.saleAllPrice[sale['id']]!['price'])} ${"sum".tr}",
                                     style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "all_price".tr + ":",
-                                    style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey.shade600),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Text(
-                                      "${MainFunc().prettyPrice(cartProvider.saleAllPrice[sale['id']]!['price'])} ${"sum".tr}",
-                                      style: TextStyle(fontWeight: FontWeight.w600, color: HexToColor.mainColor),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                       Column(
                         children: [
                           Container(
                             height: 35,
-                            padding: const EdgeInsets.only(left: 30, right: 20),
+                            padding: EdgeInsets.only(left: 30, right: 20),
                             decoration: BoxDecoration(
                               color: sale['status'] == "0"
                                   ? Colors.blue.withOpacity(0.8)

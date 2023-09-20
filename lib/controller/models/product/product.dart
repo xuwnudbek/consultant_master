@@ -39,8 +39,6 @@ class Product {
   });
 
   factory Product.fromMap(Map<String, dynamic> map) {
-    print("____MAP::: ${Get.locale!.languageCode}");
-
     return Product(
       id: map['id'],
       categoryId: map['category_id'],

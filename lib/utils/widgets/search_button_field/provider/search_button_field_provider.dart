@@ -1,9 +1,14 @@
 import 'package:consultant_orzu/controller/https/http.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SearchButtonFieldProvider extends ChangeNotifier {
   var searchController = TextEditingController();
+  bool showClear = false;
+  set setShowClear(value) {
+    showClear = value;
+    notifyListeners();
+  }
+
   var focusNode = FocusNode();
 
   bool isLoading = false;
@@ -18,7 +23,7 @@ class SearchButtonFieldProvider extends ChangeNotifier {
 
   SearchButtonFieldProvider() {
     // searchController.addListener(() async {
-    //   print("++++++++++++" + searchController.text.length.toString());
+    //   ("++++++++++++" + searchController.text.length.toString());
     //   if (searchController.text.length > 2) {
     //     await getSearchProducts(searchController.text);
     //   } else {
@@ -42,9 +47,9 @@ class SearchButtonFieldProvider extends ChangeNotifier {
     if (res['status'] == HttpResponse.data) {
       setProduct = res['data']['data'];
 
-      print("-------------------------------------------------");
-      print("search res: ${res['data']['data']}");
-      print("-------------------------------------------------");
+      ("-------------------------------------------------");
+      ("search res: ${res['data']['data']}");
+      ("-------------------------------------------------");
 
       notifyListeners();
     } else {
@@ -56,6 +61,7 @@ class SearchButtonFieldProvider extends ChangeNotifier {
   }
 
   clear() {
+    setShowClear = false;
     searchController.clear();
     _products.clear();
     notifyListeners();

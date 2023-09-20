@@ -77,7 +77,7 @@ class CategoryProvider extends ChangeNotifier {
     var res = await HttpService.GET(HttpService.products + "/$slug", base: HttpService.baseUrl);
 
     if (res['status'] == HttpResponse.data) {
-      print(res['data']);
+      (res['data']);
       products = res['data']['data'];
       notifyListeners();
     }
@@ -92,7 +92,7 @@ class CategoryProvider extends ChangeNotifier {
     changeCategory = false;
     titleCategory = breadCrumbs;
     notifyListeners();
-    print("__________________breadCrumbs:: $breadCrumbs");
+    ("__________________breadCrumbs:: $breadCrumbs");
     getProducts("${slug}");
   }
 

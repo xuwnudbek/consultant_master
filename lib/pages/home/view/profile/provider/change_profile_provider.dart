@@ -4,6 +4,7 @@ import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ChangeProfileProvider extends ChangeNotifier {
   var nameController = TextEditingController();
@@ -45,7 +46,7 @@ class ChangeProfileProvider extends ChangeNotifier {
     };
 
     if (fting.length < 13) {
-      MainSnackbars.warning("Telefon raqam noto'g'ri");
+      MainSnackbars.warning("incorrect_phone".tr);
       return;
     }
 
@@ -67,7 +68,7 @@ class ChangeProfileProvider extends ChangeNotifier {
       body: data,
     );
 
-    print(res);
+    (res);
 
     if (res['status'] == HttpResponse.data) {
       if (res['data'].runtimeType == String) {
@@ -90,12 +91,10 @@ class ChangeProfileProvider extends ChangeNotifier {
     surnameController.value = TextEditingValue(text: seller['surname']);
     emailController.value = TextEditingValue(text: seller['email']);
     phoneController.value = TextEditingValue(
-      text: seller['phone'],
-      selection: TextSelection.fromPosition(
-        TextPosition(
-          offset: seller['phone'].length,
-        ),
-      ),
+      text: MaskTextInputFormatter(
+        mask: "+998 ## ### ## ##",
+        filter: {"#": RegExp(r'^[0-9]')},
+      ).maskText(seller['phone']),
     );
     notifyListeners();
   }
@@ -140,7 +139,7 @@ class ChangeProfileProvider extends ChangeNotifier {
     }
 
     if (oldPassword.text.isEmpty & (newPassword.text.isNotEmpty || confirmPassword.text.isNotEmpty)) {
-      MainSnackbars.warning("${'old_password'.tr} " + "empty".tr);
+      MainSnackbars.warning('fill_old_password'.tr);
       return false;
     }
     if (newPassword.text.isNotEmpty & confirmPassword.text.isEmpty) {
@@ -160,7 +159,7 @@ class ChangeProfileProvider extends ChangeNotifier {
 
     if (oldPassword.text.isNotEmpty & (newPassword.text.isNotEmpty & confirmPassword.text.isNotEmpty)) {
       if (newPassword.text != confirmPassword.text) {
-        MainSnackbars.warning("new_password".tr + " " + "doesnt_match".tr);
+        MainSnackbars.warning("new_passwords_doesnt_match".tr);
         return false;
       }
     }
@@ -185,7 +184,7 @@ class ChangeProfileProvider extends ChangeNotifier {
 
   updateImage(String path) async {
     var res = await HttpService.uploadFile(path, seller['id']);
-    print(res);
+    (res);
   }
 
   refresh() {

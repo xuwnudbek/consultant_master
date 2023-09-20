@@ -86,8 +86,13 @@ const Map<String, String> uz = {
   "empty": "bo'sh",
   "not_email": "E-mail noto'g'ri",
   "doesnt_match": "mos emas",
-  "need_to_fill": "to'ldirilishi kerak",
+  "need_to_fill": "Eski parolni kiriting",
+  "fill_old_password": "Введите старый пароль",
 
   "added_to_calculator": "Kalkulyatorga qo'shildi",
   "incorrect_phone": "Telefon raqam noto'g'ri kiritilgan",
+
+  "enter_client_number": "Mijozning telefon raqamini\nkiriting",
+
+  "waiting_order": "Kutilmoqda",
 };

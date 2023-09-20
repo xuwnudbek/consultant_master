@@ -289,7 +289,7 @@ AlertDialog _buildDialog({required AboutProductProvider provider, required Funct
                           ),
                         );
                       }
-                      print(provider.initPriceController.text);
+                      (provider.initPriceController.text);
                     },
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,

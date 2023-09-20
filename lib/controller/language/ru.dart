@@ -15,7 +15,7 @@ const Map<String, String> ru = {
   "quit": "Выйти",
   "revision": "Ревизия",
   "sale": "Продажа",
-  "sale_status": "@ta из @dan завершенные продажи",
+  "sale_status": "@ta из @dan завершенных продаж",
   "sum": "сум",
   "article": "Артикул",
   "sale_empty": "Список продаж пуст",
@@ -67,6 +67,7 @@ const Map<String, String> ru = {
   "password": "Пароль",
   "old_password": "Старый пароль",
   "new_password": "Новый пароль",
+  "new_passwords_doesnt_match": "Пароли не совпадают",
   "confirm_password": "Подтвердите новый пароль",
   "really_want": "Вы действительно хотите это сделать?",
   "really_quit": "Вы действительно хотите выйти?",
@@ -86,8 +87,14 @@ const Map<String, String> ru = {
   "empty": "пусто",
   "not_email": "неверный e-mail",
   "doesnt_match": "не совпадают",
+
   "need_to_fill": "нужно заполнить",
+  "fill_old_password": "Введите старый пароль",
 
   "added_to_calculator": "Добавлено в калькулятор",
   "incorrect_phone": "Неверно введен номер телефона",
+
+  "enter_client_number": "Введите номер телефона\nклиента",
+
+  "waiting_order": "В ожидании",
 };

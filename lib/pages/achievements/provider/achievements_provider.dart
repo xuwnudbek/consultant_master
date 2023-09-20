@@ -23,13 +23,13 @@ class AchievementsProvider extends ChangeNotifier {
 
     var res = await HttpService.POST(HttpService.saller + "/$sellerId", base: HttpService.mainUrl, body: {"_method": "PUT"});
 
-    print("#####################################################");
-    print(res);
-    print("#####################################################");
+    ("#####################################################");
+    (res);
+    ("#####################################################");
 
     if (res['status'] == HttpResponse.error || res['status'] == HttpResponse.none) {
       MainSnackbars.error(res['data']);
-      print("Vashshe error");
+      ("Vashshe error");
       return;
     }
     notifyListeners();
@@ -46,7 +46,7 @@ class AchievementsProvider extends ChangeNotifier {
     sold = sales.where((element) => element['status'] == '1').toList().length;
     denied = sales.where((element) => element['status'] == "2").toList().length;
 
-    print("order: $order, sold: $sold, denied: $denied");
+    ("order: $order, sold: $sold, denied: $denied");
     notifyListeners();
   }
 }

@@ -8,7 +8,7 @@ class LoginProvider extends ChangeNotifier {
   var login = TextEditingController();
   var password = TextEditingController();
   bool isLoading = false;
-  
+
   bool isPasswordVisible = true;
   set changePasswordVisible(value) {
     isPasswordVisible = value;
@@ -41,14 +41,14 @@ class LoginProvider extends ChangeNotifier {
       body: data,
     );
 
-    print("______________________________${res}");
+    ("______________________________${res}");
 
     if (res['status'] == HttpResponse.data) {
       if (res['data'] is String) {
         MainSnackbars.error(res['data']);
         return;
       }
-      print(res);
+      (res);
       var token = res['data']['token'];
       await db.put("token", token);
       await db.put("seller", res['data']);

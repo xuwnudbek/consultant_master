@@ -44,16 +44,19 @@ class AboutProductProvider extends ChangeNotifier {
 
       await getQuestions(product?.categoryId ?? 0);
       notifyListeners();
-    } else {}
+
+      if (product!.isDiscount) {
+        changeBottomPrice = product?.discountPrice?.truncate() ?? 0;
+      } else {
+        product!.discountPrice = 0;
+        print(product?.discountPrice?.truncate() ?? 0);
+        print(product?.price?.truncate() ?? 0);
+        changeBottomPrice = product?.price?.truncate() ?? 0;
+      }
+    }
 
     isLoading = false;
     notifyListeners();
-
-    if (product!.isDiscount) {
-      changeBottomPrice = product?.discountPrice?.truncate() ?? 0;
-    } else {
-      changeBottomPrice = product?.price?.truncate() ?? 0;
-    }
   }
 
   ///[id] is  product's category id
@@ -62,7 +65,7 @@ class AboutProductProvider extends ChangeNotifier {
     if (res['status'] == HttpResponse.data) {
       questions = res['data'];
     } else {
-      print(res['data']);
+      (res['data']);
     }
     notifyListeners();
   }

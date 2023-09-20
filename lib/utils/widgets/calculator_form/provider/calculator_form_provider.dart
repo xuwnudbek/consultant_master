@@ -16,11 +16,11 @@ class CalculatorFormProvider extends ChangeNotifier {
 
     initPriceController.addListener(() {
       onCalculate();
-      print("initPriceController");
+      ("initPriceController");
     });
     totalPriceController.addListener(() {
       onCalculate();
-      print("totalPriceController");
+      ("totalPriceController");
     });
 
     onCalculate();

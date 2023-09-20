@@ -19,19 +19,28 @@ class SearchButtonField extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.all(10.0),
               child: SearchField(
-                onSearchTextChanged: (p0) {
-                  provider.getSearchProducts(p0);
+                onSearchTextChanged: (value) {
+                  if (value.isNotEmpty) {
+                    provider.setShowClear = true;
+                  } else {
+                    provider.setShowClear = false;
+                  }
+                  provider.getSearchProducts(value);
                 },
                 textInputAction: TextInputAction.search,
                 controller: provider.searchController,
                 itemHeight: 90,
                 searchStyle: Get.textTheme.bodyLarge,
                 searchInputDecoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () async {
-                      provider.clear();
-                    },
-                    icon: Icon(Icons.clear, color: Colors.grey),
+                  suffixIcon: Visibility(
+                    visible: provider.showClear,
+                    child: IconButton(
+                      onPressed: () async {
+                        provider.setShowClear = false;
+                        provider.clear();
+                      },
+                      icon: Icon(Icons.clear, color: Colors.grey),
+                    ),
                   ),
                   hintText: "search".tr,
                   hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.grey.shade500),
@@ -94,8 +103,15 @@ class SearchProductTile extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
       tileColor: HexToColor.greyTextFieldColor,
       leading: Image.network(
-        product['image'],
+        product['image'] ?? "error",
         fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
+            "assets/images/unknown.jpg",
+            fit: BoxFit.contain,
+            width: 100,
+          );
+        },
         width: 100,
       ),
       title: Text(

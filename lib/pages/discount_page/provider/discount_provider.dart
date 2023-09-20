@@ -22,7 +22,7 @@ class DiscountProvider extends ChangeNotifier {
       notifyListeners();
       image = Image.network(carusel['image']);
     } else {
-      print(res);
+      (res);
     }
 
     isLoading = false;

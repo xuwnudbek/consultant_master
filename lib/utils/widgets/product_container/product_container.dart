@@ -82,6 +82,9 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
     var data = product['data'];
 
     var startPrice = int.tryParse(product['startPrice'].toString().replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
+    print("startPrice: ${(data['discount_price'])}");
+
     return AnimatedSize(
       duration: const Duration(milliseconds: 400),
       child: Padding(
@@ -487,7 +490,7 @@ class _ProductContainerState extends State<ProductContainer> with TickerProvider
                                                           isChangingCount = true;
                                                         });
                                                         await widget.onChangeCount(product['id'], product['count'] + 1).then((value) {
-                                                          print("");
+                                                          ("");
                                                         });
                                                         setState(() {
                                                           isChangingCount = false;
