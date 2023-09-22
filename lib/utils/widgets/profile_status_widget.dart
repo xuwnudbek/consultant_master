@@ -53,12 +53,17 @@ class ProfileStatusWidget extends StatelessWidget {
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.network(
-                          "${HttpService.images}${pd.seller['image']}",
-                          fit: BoxFit.cover,
-                          height: Get.width * 0.15,
-                          width: Get.width * 0.15,
-                        ),
+                        child: pd.seller['image'] != null
+                            ? Image.network(
+                                "${HttpService.images}${pd.seller['image']}",
+                                fit: BoxFit.cover,
+                                height: Get.width * 0.15,
+                                width: Get.width * 0.15,
+                              )
+                            : Image.asset(
+                                "assets/images/unknown.jpg",
+                                width: Get.width * 0.15 - 20,
+                              ),
                       ),
                       Positioned(
                         bottom: 0,
@@ -128,7 +133,7 @@ class ProfileStatusWidget extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
                                 child: Image.network(
-                                  "${HttpService.images}${e['prize']['image']}",
+                                  "${HttpService.images}${e['prize']['image'] ?? ""}",
                                   width: 20,
                                 ),
                               ),

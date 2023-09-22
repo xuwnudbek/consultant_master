@@ -6,6 +6,7 @@ import 'package:consultant_orzu/utils/widgets/expansion_widget.dart';
 import 'package:consultant_orzu/utils/widgets/main_product_container.dart';
 import 'package:consultant_orzu/utils/widgets/search_button_field/search_button_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -106,25 +107,32 @@ class CategoryPage extends StatelessWidget {
                                     bottom: Get.height * 0.08,
                                   ),
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
+                                    crossAxisCount: products.length == 0 ? 1 : 3,
                                     crossAxisSpacing: 0.1,
                                     childAspectRatio: 0.8,
                                   ),
-                                  itemCount: products.length,
+                                  itemCount: products.length == 0 ? 1 : products.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    return MainProductContainer(
-                                      product: products[index],
-                                      onAddCalc: (widgetKey) {
-                                        provider.listClick(widgetKey);
-                                      },
-                                      onPressed: () {
-                                        Get.to(
-                                          () => AboutProduct(
-                                            slug: products[index]['slug'],
-                                          ),
-                                        );
-                                      },
-                                    );
+                                    return products.length == 0
+                                        ? Center(
+                                            child: SvgPicture.asset(
+                                              "assets/images/empty_history.svg",
+                                              height: Get.height * 0.3,
+                                            ),
+                                          )
+                                        : MainProductContainer(
+                                            product: products[index],
+                                            onAddCalc: (widgetKey) {
+                                              provider.listClick(widgetKey);
+                                            },
+                                            onPressed: () {
+                                              Get.to(
+                                                () => AboutProduct(
+                                                  slug: products[index]['slug'],
+                                                ),
+                                              );
+                                            },
+                                          );
                                   },
                                 ),
                         ),

@@ -80,7 +80,7 @@ class HttpService {
   static GET(url, {required base, params}) async {
     var response;
     var uri = Uri.http(base, url, params);
-    (uri);
+    print(uri);
 
     try {
       var uri = Uri.http(base, url, params);

@@ -80,10 +80,15 @@ class ChangeProfile extends StatelessWidget {
                                               borderRadius: BorderRadius.circular(100),
                                               child: Stack(
                                                 children: [
-                                                  Image.network(
-                                                    "${HttpService.images}/${provider.seller['image']}",
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                                  provider.seller['image'] != null
+                                                      ? Image.network(
+                                                          "${HttpService.images}${provider.seller['image']}",
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.asset(
+                                                          "assets/images/unknown.jpg",
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                   Positioned(
                                                     bottom: 0,
                                                     child: InkWell(

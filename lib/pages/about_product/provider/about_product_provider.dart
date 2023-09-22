@@ -1,8 +1,6 @@
 import 'package:consultant_orzu/controller/hive/hive.dart';
 import 'package:consultant_orzu/controller/https/http.dart';
 import 'package:consultant_orzu/controller/models/product/product.dart';
-import 'package:consultant_orzu/pages/home/view/calculator/calculator_page.dart';
-import 'package:consultant_orzu/pages/home/view/home_page/home_page.dart';
 import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +32,7 @@ class AboutProductProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    var res = await HttpService.GET(HttpService.product + "/$slug", base: HttpService.baseUrl);
+    var res = await HttpService.GET("${HttpService.product}/$slug", base: HttpService.baseUrl);
 
     if (res['status'] == HttpResponse.data) {
       product = Product.fromMap(res['data']['data']);
@@ -49,10 +47,10 @@ class AboutProductProvider extends ChangeNotifier {
         changeBottomPrice = product?.discountPrice?.truncate() ?? 0;
       } else {
         product!.discountPrice = 0;
-        print(product?.discountPrice?.truncate() ?? 0);
-        print(product?.price?.truncate() ?? 0);
         changeBottomPrice = product?.price?.truncate() ?? 0;
       }
+    } else {
+      print("_____________________Product Error:: ${res['data']}");
     }
 
     isLoading = false;

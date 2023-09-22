@@ -57,6 +57,9 @@ class MyApp extends StatelessWidget {
                   elevation: 0,
                   iconTheme: IconThemeData(color: HexToColor.blackColor),
                 ),
+                colorScheme: ColorScheme.fromSwatch(
+                  accentColor: Colors.orange.shade100,
+                ),
                 scaffoldBackgroundColor: Colors.white,
                 fontFamily: "Montserrat",
                 textTheme: TextTheme(
@@ -90,9 +93,6 @@ class MyApp extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                //  data: Theme.of(context).copyWith(
-                canvasColor: HexToColor.mainColor,
-                // ),
               ),
               home: Consumer<MainProvider>(
                 builder: (context, provider, _) {

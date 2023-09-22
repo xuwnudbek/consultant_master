@@ -55,8 +55,8 @@ class AboutProduct extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
                                   boxShadow: shadowContainer(),
+                                  color: Colors.white,
                                 ),
                                 child: Column(
                                   children: [
