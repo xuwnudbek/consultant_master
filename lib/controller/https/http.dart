@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:consultant_orzu/controller/hive/hive.dart';
+import 'package:consultant_orzu/utils/main_extensions.dart';
 import 'package:consultant_orzu/utils/widgets/main_snackbars.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -55,6 +56,8 @@ class HttpService {
         headers: headers,
       );
 
+      res.checkAuth();
+
       if (res.statusCode < 299) {
         response = {
           "status": HttpResponse.data,
@@ -84,8 +87,9 @@ class HttpService {
 
     try {
       var uri = Uri.http(base, url, params);
-      ("uri: ${uri}");
       var res = await http.get(uri, headers: headers);
+
+      res.checkAuth();
 
       if (res.statusCode < 299) {
         response = {

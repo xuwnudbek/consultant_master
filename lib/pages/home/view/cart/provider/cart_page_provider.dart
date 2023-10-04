@@ -10,8 +10,6 @@ class CartPageProvider extends ChangeNotifier {
     "2": "denied".tr,
   };
 
-  
-
   var selectCategory;
 
   List dateRange = [];
@@ -33,7 +31,7 @@ class CartPageProvider extends ChangeNotifier {
   }
 
   void onSelectItem(value) {
-    (value.runtimeType);
+    
     selectCategory = value;
     sorted = sales.where((element) => element['status'] == value || value == "all").toList();
     if (dateRange.isNotEmpty) {
@@ -86,8 +84,9 @@ class CartPageProvider extends ChangeNotifier {
       if (sale['products'].isEmpty) return;
 
       sale['products'].forEach((e) {
+        if (e['data'] == null) return;
         e['count'] = int.parse(e['count']);
-        if (e['data']['discount_price'] == null) {
+        if (!e['data']['is_discount']) {
           price += int.tryParse("${e['data']['price'] * e['count']}") ?? 0;
         } else {
           price += int.tryParse("${e['data']['discount_price'] * e['count']}") ?? 0;

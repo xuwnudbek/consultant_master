@@ -151,7 +151,7 @@ class ChangeProfile extends StatelessWidget {
                                         MainInputField(
                                           isEnabled: provider.isEnabled,
                                           controller: provider.phoneController,
-                                          hintText: "+998 99 290 26 14",
+                                          hintText: "+998",
                                           inputFormatters: [
                                             MaskTextInputFormatter(
                                               mask: "+998 ## ### ## ##",

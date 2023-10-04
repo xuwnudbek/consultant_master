@@ -140,6 +140,7 @@ class MainProvider extends ChangeNotifier {
 
   onChangeToken() {
     token = db.get("token");
+    print(token);
     notifyListeners();
   }
 

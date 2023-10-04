@@ -128,7 +128,7 @@ class ChangeProfileProvider extends ChangeNotifier {
       return false;
     }
     if (phoneController.text.isEmpty || phoneController.text.length < 9) {
-      MainSnackbars.warning("${'phone'.tr} " + "empty".tr);
+      MainSnackbars.warning("${'enter_phone'.tr}");
       return false;
     }
     if (emailController.text.isEmpty) {
@@ -143,11 +143,11 @@ class ChangeProfileProvider extends ChangeNotifier {
       return false;
     }
     if (newPassword.text.isNotEmpty & confirmPassword.text.isEmpty) {
-      MainSnackbars.warning("${'new_password'.tr} " + "doesnt_match".tr);
+      MainSnackbars.warning("new_passwords_doesnt_match".tr);
       return false;
     }
     if (newPassword.text.isEmpty & confirmPassword.text.isNotEmpty) {
-      MainSnackbars.warning("${'new_password'.tr} " + "need_to_fill".tr);
+      MainSnackbars.warning("${'enter_new_password'.tr}");
       return false;
     }
 

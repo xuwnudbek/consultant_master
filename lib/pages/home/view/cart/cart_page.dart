@@ -7,6 +7,7 @@ import 'package:consultant_orzu/utils/functions/main_func.dart';
 import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/shadow/container_shadow.dart';
 import 'package:consultant_orzu/utils/widgets/loaders/cp_indicator.dart';
+import 'package:consultant_orzu/utils/widgets/main_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,7 +70,7 @@ class CartPage extends StatelessWidget {
                                                   value: "${item.key}",
                                                   child: Text(
                                                     "    " + item.value,
-                                                    style: TextStyle(color: Colors.white, fontSize: 13.8.sp, fontWeight: FontWeight.w500),
+                                                    style: TextStyle(color: HexToColor.mainColor, fontSize: 13.8.sp, fontWeight: FontWeight.w500),
                                                   ),
                                                 ))
                                             .toList(),
@@ -83,6 +84,16 @@ class CartPage extends StatelessWidget {
                                           ),
                                           width: Get.width,
                                         ),
+                                        selectedItemBuilder: (context) {
+                                          return provider.listCategory.entries.map((item) {
+                                            return Center(
+                                              child: Text(
+                                                "    " + item.value,
+                                                style: TextStyle(color: Colors.white, fontSize: 13.8.sp, fontWeight: FontWeight.w500),
+                                              ),
+                                            );
+                                          }).toList();
+                                        },
                                         menuItemStyleData: MenuItemStyleData(
                                           height: 24.sp,
                                         ),

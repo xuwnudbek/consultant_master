@@ -48,7 +48,7 @@ class LoginProvider extends ChangeNotifier {
         MainSnackbars.error(res['data']);
         return;
       }
-      (res);
+
       var token = res['data']['token'];
       await db.put("token", token);
       await db.put("seller", res['data']);

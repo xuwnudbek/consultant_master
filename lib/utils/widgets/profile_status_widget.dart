@@ -18,7 +18,7 @@ class ProfileStatusWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       height: Get.height * 0.25,
-      width: Get.width * 0.75,
+      width: Get.width * 0.85,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: shadowContainer(),

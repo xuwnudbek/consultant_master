@@ -87,7 +87,7 @@ const Map<String, String> uz = {
   "not_email": "E-mail noto'g'ri",
   "doesnt_match": "mos emas",
   "need_to_fill": "Eski parolni kiriting",
-  "fill_old_password": "Введите старый пароль",
+  "fill_old_password": "Eski parolni kiriting",
 
   "added_to_calculator": "Kalkulyatorga qo'shildi",
   "incorrect_phone": "Telefon raqam noto'g'ri kiritilgan",
@@ -95,4 +95,9 @@ const Map<String, String> uz = {
   "enter_client_number": "Mijozning telefon raqamini\nkiriting",
 
   "waiting_order": "Kutilmoqda",
+
+  //sana 04.10.2023
+  "enter_phone": "Telefon raqamni kiriting",
+  "new_passwords_doesnt_match": "Yangi parollar mos emas",
+  "enter_new_password": "Yangi parolni kiriting",
 };

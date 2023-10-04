@@ -1,6 +1,6 @@
 const Map<String, String> ru = {
   "yes": "Да",
-  "no": "нет",
+  "no": "Нет",
   "welcome": "Добро пожаловать",
   "convenience_with_us": "С нами удобно",
   "salesman": "Продавец",
@@ -97,4 +97,7 @@ const Map<String, String> ru = {
   "enter_client_number": "Введите номер телефона\nклиента",
 
   "waiting_order": "В ожидании",
+  //sana 04.10.2023
+  "enter_phone": "Введите номер телефона",
+  "enter_new_password": "Введите новый пароль",
 };
