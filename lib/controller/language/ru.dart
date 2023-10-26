@@ -19,7 +19,7 @@ const Map<String, String> ru = {
   "sum": "сум",
   "article": "Артикул",
   "sale_empty": "Список продаж пуст",
-  "features": "Свойства",
+  "features": "Характеристики",
   "instalment_pay": "Оплата в рассрочку",
   "enter_price": "Введите цену",
   "initial_payment": "Первоначальный взнос",

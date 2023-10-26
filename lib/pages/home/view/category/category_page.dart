@@ -1,5 +1,6 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:consultant_orzu/pages/home/view/category/provider/category_provider.dart';
+import 'package:consultant_orzu/utils/hex_to_color.dart';
 import 'package:consultant_orzu/utils/widgets/loaders/cp_indicator.dart';
 
 import 'package:consultant_orzu/utils/widgets/expansion_widget.dart';
@@ -24,6 +25,7 @@ class CategoryPage extends StatelessWidget {
         builder: (context, provider, child) {
           var mainCategories = provider.mainCategories;
           var isLoading = provider.isLoading;
+          var isAdding = provider.isAdding;
           var products = provider.products;
 
           return AddToCartAnimation(
@@ -38,20 +40,18 @@ class CategoryPage extends StatelessWidget {
               provider.runAddToCartAnimation = runAddToCartAnimation;
             },
             child: Scaffold(
-              body: isLoading
+              body: isLoading && !isAdding
                   ? CPIndicator()
                   : Column(
                       children: [
                         SearchButtonField(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 16,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RichText(
+                        Stack(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(
+                                maxLines: 1,
                                 text: TextSpan(
                                   text: 'all_category'.tr,
                                   style: TextStyle(
@@ -70,21 +70,21 @@ class CategoryPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Visibility(
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Visibility(
                                 visible: !provider.isCategory,
                                 child: InkWell(
                                   onTap: () {
                                     provider.changeCategory = true;
                                   },
-                                  child: Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Icon(Icons.clear_rounded),
-                                  ),
+                                  child: Icon(Icons.clear_rounded),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          ],
+                        ).paddingOnly(left: 8, right: 8, top: 8),
                         Expanded(
                           child: provider.isCategory
                               ? ListView(
@@ -99,41 +99,61 @@ class CategoryPage extends StatelessWidget {
                                       ),
                                   ],
                                 )
-                              : GridView.builder(
-                                  padding: EdgeInsets.only(
-                                    top: 5,
-                                    left: 11,
-                                    right: 11,
-                                    bottom: Get.height * 0.08,
-                                  ),
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: products.length == 0 ? 1 : 3,
-                                    crossAxisSpacing: 0.1,
-                                    childAspectRatio: 0.8,
-                                  ),
-                                  itemCount: products.length == 0 ? 1 : products.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return products.length == 0
-                                        ? Center(
-                                            child: SvgPicture.asset(
-                                              "assets/images/empty_history.svg",
-                                              height: Get.height * 0.3,
-                                            ),
-                                          )
-                                        : MainProductContainer(
-                                            product: products[index],
-                                            onAddCalc: (widgetKey) {
-                                              provider.listClick(widgetKey);
-                                            },
-                                            onPressed: () {
-                                              Get.to(
-                                                () => AboutProduct(
-                                                  slug: products[index]['slug'],
-                                                ),
-                                              );
-                                            },
-                                          );
+                              : RefreshIndicator(
+                                  color: HexToColor.mainColor,
+                                  onRefresh: () async {
+                                    await provider.getProducts("${provider.slug1}");
                                   },
+                                  child: GridView.builder(
+                                    padding: EdgeInsets.only(
+                                      top: 5,
+                                      left: 11,
+                                      right: 11,
+                                      bottom: Get.height * 0.08,
+                                    ),
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: products.length == 0 ? 1 : 3,
+                                      crossAxisSpacing: 0.1,
+                                      childAspectRatio: 0.8,
+                                    ),
+                                    itemCount: products.length == 0
+                                        ? 1
+                                        : isAdding
+                                            ? products.length + 1
+                                            : products.length,
+                                    controller: provider.scrollController,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return products.length == 0
+                                          ? Center(
+                                              child: SvgPicture.asset(
+                                                "assets/images/empty_history.svg",
+                                                height: Get.height * 0.3,
+                                              ),
+                                            )
+                                          : isAdding && (products.length == index)
+                                              ? Center(
+                                                  child: SizedBox.square(
+                                                    dimension: 100,
+                                                    child: CircularProgressIndicator(
+                                                      color: HexToColor.mainColor,
+                                                    ).marginAll(20),
+                                                  ),
+                                                )
+                                              : MainProductContainer(
+                                                  product: products[index],
+                                                  onAddCalc: (widgetKey) {
+                                                    provider.listClick(widgetKey);
+                                                  },
+                                                  onPressed: () {
+                                                    Get.to(
+                                                      () => AboutProduct(
+                                                        slug: products[index]['slug'],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                    },
+                                  ),
                                 ),
                         ),
                         AddToCartIcon(

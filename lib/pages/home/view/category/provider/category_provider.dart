@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class CategoryProvider extends ChangeNotifier {
   var searchController = TextEditingController();
+  var scrollController = ScrollController();
 
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCartAnimation;
@@ -37,7 +38,14 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int page = 1;
+
   onInit() async {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        getProducts("${slug1}", true);
+      }
+    });
     await getCategories();
   }
 
@@ -49,6 +57,7 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   bool isLoading = false;
+  bool isAdding = false;
   List mainCategories = [];
 
   // Request Functions
@@ -71,28 +80,53 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getProducts(String slug) async {
+  getProducts(String slug, [bool isAdding = false]) async {
     isLoading = true;
+    this.isAdding = isAdding;
     notifyListeners();
-    var res = await HttpService.GET(HttpService.products + "/$slug", base: HttpService.baseUrl);
+    if (!isAdding) {
+      page = 1;
+    }
+    var res = await HttpService.GET(
+      HttpService.products + "/$slug",
+      base: HttpService.baseUrl,
+      params: {"page": "${page}"},
+    );
+    if (page == 1) {
+      page++;
+    }
 
     if (res['status'] == HttpResponse.data) {
       (res['data']);
-      products = res['data']['data'];
+      if (isAdding) {
+        products.addAll(res['data']['data']);
+        int lastPage = res['data']['meta']['last_page'] ?? 0;
+        print("myPage:: $page");
+        print("lastPage:: $lastPage");
+
+        if (page <= lastPage) {
+          page++;
+          notifyListeners();
+        }
+      } else {
+        products = res['data']['data'];
+      }
       notifyListeners();
     }
-
+    this.isAdding = false;
     isLoading = false;
     notifyListeners();
   }
 
   //local Functions
-
+  String slug1 = "";
   void onSelectCategory({String breadCrumbs = "", slug}) {
     changeCategory = false;
     titleCategory = breadCrumbs;
     notifyListeners();
     ("__________________breadCrumbs:: $breadCrumbs");
+    this.slug1 = slug;
+    notifyListeners();
     getProducts("${slug}");
   }
 

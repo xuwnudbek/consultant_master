@@ -184,6 +184,7 @@ class Login extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: DropdownButton(
+            dropdownColor: HexToColor.mainColor,
             borderRadius: BorderRadius.circular(10),
             underline: SizedBox.shrink(),
             iconEnabledColor: HexToColor.light,
@@ -203,7 +204,6 @@ class Login extends StatelessWidget {
             ].toList(),
             onChanged: (e) {
               provider.language = e;
-              (provider.language);
             },
           ),
         ),

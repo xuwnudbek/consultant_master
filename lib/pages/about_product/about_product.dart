@@ -286,7 +286,7 @@ class AboutProduct extends StatelessWidget {
             children: [
               Text(
                 "faq".tr + ":",
-                style: TextStyle(fontSize: 14.8.sp, fontWeight: FontWeight.w600),
+                style: Get.textTheme.titleSmall,
               )
             ],
           ),
